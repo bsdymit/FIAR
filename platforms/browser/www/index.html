@@ -40,22 +40,20 @@
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>FIAR Menu</title>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
 
-<body>
+<body onload="onLoad();">
     <div class="app">
         <h1>FIAR</h1>
         <div id="menu">
-            <button type="button" id="play" class="menuButton">Play</button>
-            <button type="button" id="howToPlay" class="menuButton">How To Play</button>
-            <button type="button" id="about" class="menuButton">About</button>
+            <a type="button" href="play.html" id="play" class="menuButton"><button>Play</button></a>
+            <a type="button" id="howToPlay" class="menuButton"><button>How To Play</button></a>
+            <a type="button" id="about" class="menuButton"><button>About</button></a>
         </div>
     </div>
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-        app.initialize();
-    </script>
+
 </body>
 
 </html>
