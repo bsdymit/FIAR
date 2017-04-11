@@ -16,3 +16,42 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+ document.addEventListener("touchstart", function(e) {
+	 if(e.target.id != "board")
+		 squareSelected(e.target.id);
+ 	}, false);
+	
+ document.addEventListener("touchend", function(e) {
+	 if(e.target.id != "board")
+		 squareUnselected(e.target.id);
+ 	}, false);
+	
+document.addEventListener("touchenter", function(e) {
+	 if(e.target.id != "board")
+		 squareEntered(e.target.id);
+ 	}, false);
+	
+function squareSelected(id) {
+	var div = document.getElementById(id);
+	div.style.backgroundColor = "green";
+	div.addEventListener("touchleave", function(e) {
+		squareSlide(id);
+	}, false);
+}
+
+function squareUnselected(id) {
+	var div = document.getElementById(id);
+	div.style.backgroundColor = "white";
+}
+
+
+function squareSlide(id) {
+	var div = document.getElementById(id);
+	div.style.backgroundColor = "blue";
+}
+	
+function squareEntered(id) {
+	var div = document.getElementById(id);
+	div.style.backgroundColor = "green";
+}
