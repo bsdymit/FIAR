@@ -111,6 +111,17 @@ button {
   margin-top: 4%;
 }
 
+.initWhite {
+  background-color: white;
+}
+
+.initRed {
+  background-color: red;
+}
+
+.initBlue {
+  background-color: blue;
+}
 
 .blink {
     animation:fade 3000ms infinite;
