@@ -14,44 +14,45 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License.
+ * under the booty License.
  */
  
- document.addEventListener("touchstart", function(e) {
-	 if(e.target.id != "board")
-		 squareSelected(e.target.id);
+var selectedTileId;
+var startingCoords;
+var X;
+ 
+document.addEventListener("touchstart", function(e) {
+	if(e.target.id != "board")
+	{
+		startingCoords = e.changedTouches[0];
+		X = startingCoords.clientX;
+		selectedTileId = e.target.id;
+		document.getElementById("pos0").innerHTML = X;
+		squareSelected(e.target.id);
+	}
+
  	}, false);
-	
- document.addEventListener("touchend", function(e) {
-	 if(e.target.id != "board")
-		 squareUnselected(e.target.id);
+
+document.addEventListener("touchmove", function(e) {
+		var currentTouchObj = e.changedTouches[0];
+		document.getElementById("pos1").innerHTML = currentTouchObj.clientX;
+		if(currentTouchObj.clientX > X)
+			squareMoved();
  	}, false);
-	
-document.addEventListener("touchenter", function(e) {
-	 if(e.target.id != "board")
-		 squareEntered(e.target.id);
+
+document.addEventListener("touchend", function(e) {
+	if(e.target.id != "board")
+		squareUnselected(e.target.id);
  	}, false);
 	
 function squareSelected(id) {
+	startingTileId = id;
 	var div = document.getElementById(id);
 	div.style.backgroundColor = "green";
-	div.addEventListener("touchleave", function(e) {
-		squareSlide(id);
-	}, false);
-}
-
-function squareUnselected(id) {
-	var div = document.getElementById(id);
-	div.style.backgroundColor = "white";
 }
 
 
-function squareSlide(id) {
-	var div = document.getElementById(id);
-	div.style.backgroundColor = "blue";
-}
-	
-function squareEntered(id) {
-	var div = document.getElementById(id);
-	div.style.backgroundColor = "green";
+function squareMoved() {
+	var div = document.getElementById(selectedTileId);
+	div.style.backgroundColor = "red";
 }
