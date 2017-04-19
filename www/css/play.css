@@ -93,37 +93,36 @@ button {
 }
 
 #board {
+  background: white;
   position: relative;
   width: 90%;
   height: 0;
   padding-bottom: 90%;
   outline: blue solid thick;
-  margin: auto;
+  margin:auto;
+  margin-top: 20%;
 }
 
 .square {
   width: 20%;
   height: 0px;
   padding-bottom: 20%;
-  border: black solid;
   float: left;
-  margin-left: 4%;
-  margin-top: 4%;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
 }
 
 .initWhite {
+  border: white solid;
   background-color: white;
 }
 
 .initRed {
+  border: black solid;
   background-color: red;
 }
 
 .initBlue {
+  border: black solid;
   background-color: blue;
-}
-
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
 }

@@ -16,18 +16,18 @@
  * specific language governing permissions and limitations
  * under the booty License.
  */
- 
+
 var selectedTileId;
 var startingCoords;
-var X;
- 
+var startingXCoord;
+
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board")
 	{
 		startingCoords = e.changedTouches[0];
-		X = startingCoords.clientX;
+		startingXCoord = startingCoords.clientX;
 		selectedTileId = e.target.id;
-		document.getElementById("pos0").innerHTML = X;
+		document.getElementById("pos0").innerHTML = startingXCoord;
 		squareSelected(e.target.id);
 	}
 
@@ -36,21 +36,28 @@ document.addEventListener("touchstart", function(e) {
 document.addEventListener("touchmove", function(e) {
 		var currentTouchObj = e.changedTouches[0];
 		document.getElementById("pos1").innerHTML = currentTouchObj.clientX;
-		if(currentTouchObj.clientX > X)
+
+		if(currentTouchObj.clientX > startingXCoord)
 			squareMoved();
+
  	}, false);
 
 document.addEventListener("touchend", function(e) {
 	if(e.target.id != "board")
 		squareUnselected(e.target.id);
  	}, false);
-	
+
 function squareSelected(id) {
 	startingTileId = id;
 	var div = document.getElementById(id);
 	div.style.backgroundColor = "green";
 }
 
+function squareUnselected(id) {
+	startingTileId = id;
+	var div = document.getElementById(id);
+	div.style.backgroundColor = "white";
+}
 
 function squareMoved() {
 	var div = document.getElementById(selectedTileId);
