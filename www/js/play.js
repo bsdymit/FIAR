@@ -20,12 +20,14 @@
 var selectedTileId;
 var startingCoords;
 var startingXCoord;
+var startingYCoord;
 
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board")
 	{
 		startingCoords = e.changedTouches[0];
 		startingXCoord = startingCoords.clientX;
+    startingYCoord = startingCoords.clientY;
 		selectedTileId = e.target.id;
 		document.getElementById("pos0").innerHTML = startingXCoord;
 		squareSelected(e.target.id);
@@ -34,11 +36,21 @@ document.addEventListener("touchstart", function(e) {
  	}, false);
 
 document.addEventListener("touchmove", function(e) {
-		var currentTouchObj = e.changedTouches[0];
-		document.getElementById("pos1").innerHTML = currentTouchObj.clientX;
+    var currX = e.changedTouches[0].clientX;
+    var currY = e.changedTouches[0].clientY;
+    var div = document.getElementById(e.target.id);
 
-		if(currentTouchObj.clientX > startingXCoord)
-			squareMoved();
+		if(validRightMove(currX, currY))
+			div.style.backgroundColor = "red";
+
+    else if(validLeftMove(currX, currY))
+      div.style.backgroundColor = "blue";
+
+    else if(validUpMove(currX, currY))
+      div.style.backgroundColor = "yellow";
+
+    else if(validDownMove(currX, currY))
+      div.style.backgroundColor = "purple";
 
  	}, false);
 
@@ -61,5 +73,52 @@ function squareUnselected(id) {
 
 function squareMoved() {
 	var div = document.getElementById(selectedTileId);
-	div.style.backgroundColor = "red";
 }
+
+function validRightMove(currX, currY) {
+  var isRightMove = false;
+
+	if(currX > startingXCoord && (Math.abs(currX - startingXCoord) > Math.abs(currY - startingYCoord)))
+    isRightMove = true;
+
+  return isRightMove;
+}
+
+function validLeftMove(currX, currY) {
+  var isLeftMove = false;
+
+  if(currX < startingXCoord && (Math.abs(currX - startingXCoord) > Math.abs(currY - startingYCoord)))
+    isLeftMove = true;
+
+  return isLeftMove;
+}
+
+function validUpMove(currX, currY) {
+  var isUpMove = false;
+
+  if(currY > startingXCoord && (Math.abs(currX - startingXCoord) < Math.abs(currY - startingYCoord)))
+    isUpMove = true;
+
+  return isUpMove;
+}
+
+function validDownMove(currX, currY) {
+  var isDownMove = false;
+
+  if(currY < startingXCoord && (Math.abs(currX - startingXCoord) < Math.abs(currY - startingYCoord)))
+    isDownMove = true;
+
+  return isDownMove;
+}
+
+
+
+
+
+
+
+
+
+
+
+
