@@ -18,100 +18,104 @@
  */
 
 var selectedTileId;
-var startingCoords;
 var startingXCoord;
 var startingYCoord;
+var startingTileLeft;
 
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board")
 	{
-		startingCoords = e.changedTouches[0];
-		startingXCoord = startingCoords.clientX;
-    startingYCoord = startingCoords.clientY;
+		startingXCoord = e.changedTouches[0].clientX;
+    startingYCoord = e.changedTouches[0].clientY;
+    startingTileLeft = e.target.style.left;
 		selectedTileId = e.target.id;
 		document.getElementById("pos0").innerHTML = startingXCoord;
-		squareSelected(e.target.id);
+		tileSelected(e.target.id);
 	}
 
  	}, false);
 
 document.addEventListener("touchmove", function(e) {
-    var currX = e.changedTouches[0].clientX;
-    var currY = e.changedTouches[0].clientY;
+    var currXCoord = e.changedTouches[0].clientX;
+    var currYCoord = e.changedTouches[0].clientY;
     var div = document.getElementById(e.target.id);
 
-		if(validRightMove(currX, currY))
-			div.style.backgroundColor = "red";
+		if(validRightMove(currXCoord, currYCoord))
+    {
+			moveTileRight(currXCoord, div);
+    }
 
-    else if(validLeftMove(currX, currY))
+    else if(validLeftMove(currXCoord, currYCoord))
       div.style.backgroundColor = "blue";
 
-    else if(validUpMove(currX, currY))
+    else if(validUpMove(currXCoord, currYCoord))
       div.style.backgroundColor = "yellow";
 
-    else if(validDownMove(currX, currY))
+    else if(validDownMove(currXCoord, currYCoord))
       div.style.backgroundColor = "purple";
 
  	}, false);
 
 document.addEventListener("touchend", function(e) {
 	if(e.target.id != "board")
-		squareUnselected(e.target.id);
+		tileUnselected(e.target.id);
  	}, false);
 
-function squareSelected(id) {
+function tileSelected(id) {
 	startingTileId = id;
 	var div = document.getElementById(id);
 	div.style.backgroundColor = "green";
 }
 
-function squareUnselected(id) {
+function tileUnselected(id) {
 	startingTileId = id;
 	var div = document.getElementById(id);
 	div.style.backgroundColor = "white";
 }
 
-function squareMoved() {
-	var div = document.getElementById(selectedTileId);
-}
-
-function validRightMove(currX, currY) {
+function validRightMove(currXCoord, currYCoord) {
   var isRightMove = false;
 
-	if(currX > startingXCoord && (Math.abs(currX - startingXCoord) > Math.abs(currY - startingYCoord)))
+	if(currXCoord > startingXCoord && (Math.abs(currXCoord - startingXCoord) > Math.abs(currYCoord - startingYCoord)))
     isRightMove = true;
 
   return isRightMove;
 }
 
-function validLeftMove(currX, currY) {
+function validLeftMove(currXCoord, currYCoord) {
   var isLeftMove = false;
 
-  if(currX < startingXCoord && (Math.abs(currX - startingXCoord) > Math.abs(currY - startingYCoord)))
+  if(currXCoord < startingXCoord && (Math.abs(currXCoord - startingXCoord) > Math.abs(currYCoord - startingYCoord)))
     isLeftMove = true;
 
   return isLeftMove;
 }
 
-function validUpMove(currX, currY) {
+function validUpMove(currXCoord, currYCoord) {
   var isUpMove = false;
 
-  if(currY > startingXCoord && (Math.abs(currX - startingXCoord) < Math.abs(currY - startingYCoord)))
+  if(currYCoord < startingYCoord && (Math.abs(currXCoord - startingXCoord) < Math.abs(currYCoord - startingYCoord)))
     isUpMove = true;
 
   return isUpMove;
 }
 
-function validDownMove(currX, currY) {
+function validDownMove(currXCoord, currYCoord) {
   var isDownMove = false;
 
-  if(currY < startingXCoord && (Math.abs(currX - startingXCoord) < Math.abs(currY - startingYCoord)))
+  if(currYCoord > startingYCoord && (Math.abs(currXCoord - startingXCoord) < Math.abs(currYCoord - startingYCoord)))
     isDownMove = true;
 
   return isDownMove;
 }
 
+function moveTileRight(currXCoord, div) {
+  var dist = currXCoord - startingXCoord;
 
+
+  div.style.left = (startingTileLeft + dist) + "px";
+
+}
 
 
 
