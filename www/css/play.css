@@ -16,21 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-}
 
 body {
-
-}
-
-/* Portrait layout (default) */
-.app {
-    background:url(../img/background.jpg) no-repeat center top;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    text-align: center;
+  height: 100%;
+  width: 100%;
 }
 
 /* Landscape layout (with min-width) */
@@ -59,29 +48,6 @@ button {
   margin-bottom: 10px;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
-
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
-
-#board {
-  background: white;
-  position: relative;
-  width: 90%;
-  height: 0;
-  padding-bottom: 90%;
-  outline: blue solid thick;
-  margin:auto;
-  margin-top: 20%;
-}
-
 .square {
   width: 20%;
   height: 0px;
@@ -105,4 +71,15 @@ button {
 .initBlue {
   border: black solid;
   background-color: blue;
+}
+
+#board {
+  background: white;
+  position: relative;
+  width: 90%;
+  height: 0;
+  padding-bottom: 90%;
+  outline: blue solid thick;
+  margin:auto;
+  margin-top: 20%;
 }
