@@ -18,18 +18,24 @@
  */
 
 var selectedTileId;
+var previousXCoord;
+var previousYCoord;
 var startingXCoord;
 var startingYCoord;
 var startingTileLeft;
+var startingTileTop;
 
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board")
 	{
-		startingXCoord = e.changedTouches[0].clientX;
-    startingYCoord = e.changedTouches[0].clientY;
+		previousXCoord = e.changedTouches[0].clientX;
+    previousYCoord = e.changedTouches[0].clientY;
+    startingXCoord = previousXCoord;
+    startingYCoord = previousYCoord;
     startingTileLeft = e.target.style.left;
+    startingTileTop = e.target.style.top;
 		selectedTileId = e.target.id;
-		document.getElementById("pos0").innerHTML = startingXCoord;
+		document.getElementById("pos0").innerHTML = previousXCoord;
 		tileSelected(e.target.id);
 	}
 
@@ -43,16 +49,29 @@ document.addEventListener("touchmove", function(e) {
 		if(validRightMove(currXCoord, currYCoord))
     {
 			moveTileRight(currXCoord, div);
+      div.style.backgroundColor = "red";
     }
 
     else if(validLeftMove(currXCoord, currYCoord))
+    {
+      moveTileLeft(currXCoord, div);
       div.style.backgroundColor = "blue";
+    }
 
     else if(validUpMove(currXCoord, currYCoord))
+    {
+      moveTileUp(currYCoord, div);
       div.style.backgroundColor = "yellow";
+    }
 
     else if(validDownMove(currXCoord, currYCoord))
+    {
+      moveTileDown(currYCoord, div);
       div.style.backgroundColor = "purple";
+    }
+
+    previousXCoord = currXCoord;
+    previousYCoord = currYCoord;
 
  	}, false);
 
@@ -76,7 +95,7 @@ function tileUnselected(id) {
 function validRightMove(currXCoord, currYCoord) {
   var isRightMove = false;
 
-	if(currXCoord > startingXCoord && (Math.abs(currXCoord - startingXCoord) > Math.abs(currYCoord - startingYCoord)))
+	if(currXCoord > previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord)))
     isRightMove = true;
 
   return isRightMove;
@@ -85,7 +104,7 @@ function validRightMove(currXCoord, currYCoord) {
 function validLeftMove(currXCoord, currYCoord) {
   var isLeftMove = false;
 
-  if(currXCoord < startingXCoord && (Math.abs(currXCoord - startingXCoord) > Math.abs(currYCoord - startingYCoord)))
+  if(currXCoord < previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord)))
     isLeftMove = true;
 
   return isLeftMove;
@@ -94,7 +113,7 @@ function validLeftMove(currXCoord, currYCoord) {
 function validUpMove(currXCoord, currYCoord) {
   var isUpMove = false;
 
-  if(currYCoord < startingYCoord && (Math.abs(currXCoord - startingXCoord) < Math.abs(currYCoord - startingYCoord)))
+  if(currYCoord < previousYCoord && (Math.abs(currXCoord - previousXCoord) < Math.abs(currYCoord - previousYCoord)))
     isUpMove = true;
 
   return isUpMove;
@@ -103,7 +122,7 @@ function validUpMove(currXCoord, currYCoord) {
 function validDownMove(currXCoord, currYCoord) {
   var isDownMove = false;
 
-  if(currYCoord > startingYCoord && (Math.abs(currXCoord - startingXCoord) < Math.abs(currYCoord - startingYCoord)))
+  if(currYCoord > previousYCoord && (Math.abs(currXCoord - previousXCoord) < Math.abs(currYCoord - previousYCoord)))
     isDownMove = true;
 
   return isDownMove;
@@ -114,6 +133,30 @@ function moveTileRight(currXCoord, div) {
 
 
   div.style.left = (startingTileLeft + dist) + "px";
+
+}
+
+function moveTileLeft(currXCoord, div) {
+  var dist = currXCoord - startingXCoord;
+
+
+  div.style.left = (startingTileLeft + dist) + "px";
+
+}
+
+function moveTileUp(currYCoord, div) {
+  var dist = currYCoord - startingYCoord;
+
+
+  div.style.top = (startingTileTop + dist) + "px";
+
+}
+
+function moveTileDown(currYCoord, div) {
+  var dist = currYCoord - startingYCoord;
+
+
+  div.style.top = (startingTileTop + dist) + "px";
 
 }
 
