@@ -17,7 +17,7 @@
  * under the booty License.
  */
 
-var selectedTileId;
+var selectedTileIdNumb;
 var previousXCoord;
 var previousYCoord;
 var startingXCoord;
@@ -34,45 +34,47 @@ document.addEventListener("touchstart", function(e) {
     startingYCoord = previousYCoord;
     startingTileLeft = e.target.style.left;
     startingTileTop = e.target.style.top;
-		selectedTileId = e.target.id;
-		document.getElementById("pos0").innerHTML = previousXCoord;
+		selectedTileIdNumb = e.target.id.replace("pos", "");
+		document.getElementById("pos0").innerHTML = selectedTileIdNumb;
 		tileSelected(e.target.id);
 	}
 
  	}, false);
 
 document.addEventListener("touchmove", function(e) {
-    var currXCoord = e.changedTouches[0].clientX;
-    var currYCoord = e.changedTouches[0].clientY;
-    var div = document.getElementById(e.target.id);
-
-		if(validRightMove(currXCoord, currYCoord))
+    if(e.target.id != "board")
     {
-			moveTileRight(currXCoord, div);
-      div.style.backgroundColor = "red";
+      var currXCoord = e.changedTouches[0].clientX;
+      var currYCoord = e.changedTouches[0].clientY;
+      var div = document.getElementById(e.target.id);
+
+      if(validRightMove(currXCoord, currYCoord))
+      {
+        moveTileRight(currXCoord, div);
+        div.style.backgroundColor = "red";
+      }
+
+      else if(validLeftMove(currXCoord, currYCoord))
+      {
+        moveTileLeft(currXCoord, div);
+        div.style.backgroundColor = "blue";
+      }
+
+      else if(validUpMove(currXCoord, currYCoord))
+      {
+        moveTileUp(currYCoord, div);
+        div.style.backgroundColor = "yellow";
+      }
+
+      else if(validDownMove(currXCoord, currYCoord))
+      {
+        moveTileDown(currYCoord, div);
+        div.style.backgroundColor = "purple";
+      }
+
+      previousXCoord = currXCoord;
+      previousYCoord = currYCoord;
     }
-
-    else if(validLeftMove(currXCoord, currYCoord))
-    {
-      moveTileLeft(currXCoord, div);
-      div.style.backgroundColor = "blue";
-    }
-
-    else if(validUpMove(currXCoord, currYCoord))
-    {
-      moveTileUp(currYCoord, div);
-      div.style.backgroundColor = "yellow";
-    }
-
-    else if(validDownMove(currXCoord, currYCoord))
-    {
-      moveTileDown(currYCoord, div);
-      div.style.backgroundColor = "purple";
-    }
-
-    previousXCoord = currXCoord;
-    previousYCoord = currYCoord;
-
  	}, false);
 
 document.addEventListener("touchend", function(e) {
@@ -95,7 +97,8 @@ function tileUnselected(id) {
 function validRightMove(currXCoord, currYCoord) {
   var isRightMove = false;
 
-	if(currXCoord > previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord)))
+	if(currXCoord > previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord))
+      && clearAdjTile("right"))
     isRightMove = true;
 
   return isRightMove;
@@ -104,7 +107,8 @@ function validRightMove(currXCoord, currYCoord) {
 function validLeftMove(currXCoord, currYCoord) {
   var isLeftMove = false;
 
-  if(currXCoord < previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord)))
+  if(currXCoord < previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord))
+      && clearAdjTile("left"))
     isLeftMove = true;
 
   return isLeftMove;
@@ -126,6 +130,18 @@ function validDownMove(currXCoord, currYCoord) {
     isDownMove = true;
 
   return isDownMove;
+}
+
+function clearAdjTile(direction) {
+  var clearAdjTile = false;
+
+  if(direction=="right" && ![4,8,12,16].includes(parseInt(selectedTileIdNumb)+1))
+      clearAdjTile = true;
+
+  else if(direction=="left" && ![-1,3,7,11].includes(parseInt(selectedTileIdNumb)-1))
+      clearAdjTile = true;
+
+  return clearAdjTile;
 }
 
 function moveTileRight(currXCoord, div) {
