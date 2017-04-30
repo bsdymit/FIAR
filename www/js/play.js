@@ -17,13 +17,16 @@
  * under the booty License.
  */
 
-var selectedTileIdNumb;
+var selectedTileId;
+var selectedTile;
 var previousXCoord;
 var previousYCoord;
 var startingXCoord;
 var startingYCoord;
 var startingTileLeft;
 var startingTileTop;
+
+var SQUAREMARGIN;
 
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board")
@@ -34,8 +37,12 @@ document.addEventListener("touchstart", function(e) {
     startingYCoord = previousYCoord;
     startingTileLeft = e.target.style.left;
     startingTileTop = e.target.style.top;
-		selectedTileIdNumb = e.target.id.replace("pos", "");
-		document.getElementById("pos0").innerHTML = selectedTileIdNumb;
+		selectedTileId = e.target.id.replace("pos", "");
+    selectedTile = document.getElementById(e.target.id);
+		document.getElementById("pos0").innerHTML = selectedTileId;
+
+    SQUAREMARGIN = window.getComputedStyle(selectedTile).marginLeft.replace("px", "");
+
 		tileSelected(e.target.id);
 	}
 
@@ -83,22 +90,17 @@ document.addEventListener("touchend", function(e) {
  	}, false);
 
 function tileSelected(id) {
-	startingTileId = id;
-	var div = document.getElementById(id);
-	div.style.backgroundColor = "green";
+	document.getElementById(id).style.backgroundColor = "green";
 }
 
 function tileUnselected(id) {
-	startingTileId = id;
-	var div = document.getElementById(id);
-	div.style.backgroundColor = "white";
+	document.getElementById(id).style.backgroundColor = "white";
 }
 
 function validRightMove(currXCoord, currYCoord) {
   var isRightMove = false;
 
-	if(currXCoord > previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord))
-      && clearAdjTile("right"))
+	if(currXCoord > previousXCoord && !crossingBoundary("right"))//&& (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord))
     isRightMove = true;
 
   return isRightMove;
@@ -107,8 +109,7 @@ function validRightMove(currXCoord, currYCoord) {
 function validLeftMove(currXCoord, currYCoord) {
   var isLeftMove = false;
 
-  if(currXCoord < previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord))
-      && clearAdjTile("left"))
+  if(currXCoord < previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord)))
     isLeftMove = true;
 
   return isLeftMove;
@@ -132,16 +133,19 @@ function validDownMove(currXCoord, currYCoord) {
   return isDownMove;
 }
 
-function clearAdjTile(direction) {
-  var clearAdjTile = false;
+function crossingBoundary(moveDirection) {
+  var crossingBoundary = false;
 
-  if(direction=="right" && ![4,8,12,16].includes(parseInt(selectedTileIdNumb)+1))
-      clearAdjTile = true;
+  if(moveDirection == "right")
+  {
+    var board = document.getElementById("board").getBoundingClientRect();
+    var tile = selectedTile.getBoundingClientRect();
 
-  else if(direction=="left" && ![-1,3,7,11].includes(parseInt(selectedTileIdNumb)-1))
-      clearAdjTile = true;
+    if(tile.right >= board.right - SQUAREMARGIN)
+       crossingBoundary = true;
+  }
 
-  return clearAdjTile;
+  return crossingBoundary;
 }
 
 function moveTileRight(currXCoord, div) {
