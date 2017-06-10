@@ -28,6 +28,32 @@ var startingTileTop;
 
 var SQUAREMARGIN;
 
+window.onload = function setBoardAndTileSizes() {
+
+  var boardWidth = round(screen.width - 50, 4);
+  boardWidth = round(boardWidth, 5);
+  boardWidth = round(boardWidth, 2);
+
+  document.getElementById("board").style.width = boardWidth + "px";
+  document.getElementById("board").style.paddingBottom = boardWidth + "px";
+
+  setSquareWidthAndMargins((boardWidth - 40) / 4);
+
+}
+
+function setSquareWidthAndMargins(squareWidth){
+    var elements = document.getElementsByClassName("square");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].style.width = (squareWidth + "px");
+        elements[i].style.paddingBottom = (squareWidth + "px");
+        elements[i].style.marginLeft = "8px";
+    }
+}
+
+var round = function (x, to) {
+    return Math.floor(x / to) * to;
+};
+
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board")
 	{
@@ -39,9 +65,9 @@ document.addEventListener("touchstart", function(e) {
     startingTileTop = e.target.style.top;
 		selectedTileId = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
-		document.getElementById("pos0").innerHTML = selectedTileId;
+		document.getElementById("pos0").innerHTML = selectedTile.style.width;
 
-    SQUAREMARGIN = window.getComputedStyle(selectedTile).marginLeft.replace("px", "");
+    SQUAREMARGIN = 8;//window.getComputedStyle(selectedTile).marginLeft.replace("px", "");
 
 		tileSelected(e.target.id);
 	}
@@ -94,13 +120,13 @@ function tileSelected(id) {
 }
 
 function tileUnselected(id) {
-	document.getElementById(id).style.backgroundColor = "white";
+	document.getElementById(id).style.backgroundColor = "orange";
 }
 
 function validRightMove(currXCoord, currYCoord) {
   var isRightMove = false;
 
-	if(currXCoord > previousXCoord && !crossingBoundary("right"))//&& (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord))
+	if(currXCoord > previousXCoord && !crossingBoundary("right"))
     isRightMove = true;
 
   return isRightMove;
@@ -109,7 +135,7 @@ function validRightMove(currXCoord, currYCoord) {
 function validLeftMove(currXCoord, currYCoord) {
   var isLeftMove = false;
 
-  if(currXCoord < previousXCoord && (Math.abs(currXCoord - previousXCoord) > Math.abs(currYCoord - previousYCoord)))
+  if(currXCoord < previousXCoord && !crossingBoundary("left"))
     isLeftMove = true;
 
   return isLeftMove;
@@ -135,15 +161,11 @@ function validDownMove(currXCoord, currYCoord) {
 
 function crossingBoundary(moveDirection) {
   var crossingBoundary = false;
+  var board = document.getElementById("board").getBoundingClientRect();
+  var tile = selectedTile.getBoundingClientRect();
 
-  if(moveDirection == "right")
-  {
-    var board = document.getElementById("board").getBoundingClientRect();
-    var tile = selectedTile.getBoundingClientRect();
-
-    if(tile.right >= board.right - SQUAREMARGIN)
+  if(tile.right >= (board.right - SQUAREMARGIN) || tile.left <= (board.left + SQUAREMARGIN*1 ))
        crossingBoundary = true;
-  }
 
   return crossingBoundary;
 }
@@ -151,6 +173,7 @@ function crossingBoundary(moveDirection) {
 function moveTileRight(currXCoord, div) {
   var dist = currXCoord - startingXCoord;
 
+  //document.getElementById("pos0").innerHTML = startingTileLeft;
 
   div.style.left = (startingTileLeft + dist) + "px";
 

@@ -50,36 +50,34 @@ button {
 }
 
 .square {
-  width: 20%;
+  display: inline-block;
   height: 0px;
-  padding-bottom: 20%;
+  //padding-bottom: 20%;
   float: left;
-  margin-left: 2.5%;
   margin-top: 2.5%;
   position: relative;
 }
 
 .initWhite {
-  border: white solid;
+  //border: white solid;
   background-color: white;
 }
 
 .initRed {
-  border: black solid;
+  //border: black solid;
   background-color: red;
 }
 
 .initBlue {
-  border: black solid;
+//  border: black solid;
   background-color: blue;
 }
 
 #board {
   background: white;
   position: relative;
-  width: 90%;
   height: 0;
-  padding-bottom: 90%;
+  //padding-bottom: 90%;
   outline: blue solid thick;
   margin:auto;
   margin-top: 20%;
