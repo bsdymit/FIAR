@@ -30,6 +30,7 @@ var SQUAREMARGIN;
 
 window.onload = function setBoardAndTileSizes() {
 
+  SQUAREMARGIN = 8;
   var boardWidth = round(screen.width - 50, 4);
   boardWidth = round(boardWidth, 5);
   boardWidth = round(boardWidth, 2);
@@ -37,7 +38,7 @@ window.onload = function setBoardAndTileSizes() {
   document.getElementById("board").style.width = boardWidth + "px";
   document.getElementById("board").style.paddingBottom = boardWidth + "px";
 
-  setSquareWidthAndMargins((boardWidth - 40) / 4);
+  setSquareWidthAndMargins((boardWidth - (SQUAREMARGIN * 5)) / 4);
 
 }
 
@@ -46,7 +47,7 @@ function setSquareWidthAndMargins(squareWidth){
     for (var i = 0; i < elements.length; i++) {
         elements[i].style.width = (squareWidth + "px");
         elements[i].style.paddingBottom = (squareWidth + "px");
-        elements[i].style.marginLeft = "8px";
+        elements[i].style.marginLeft = SQUAREMARGIN + "px";
     }
 }
 
@@ -66,8 +67,6 @@ document.addEventListener("touchstart", function(e) {
 		selectedTileId = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
 		document.getElementById("pos0").innerHTML = selectedTile.style.width;
-
-    SQUAREMARGIN = 8;//window.getComputedStyle(selectedTile).marginLeft.replace("px", "");
 
 		tileSelected(e.target.id);
 	}
@@ -172,8 +171,6 @@ function crossingBoundary(moveDirection) {
 
 function moveTileRight(currXCoord, div) {
   var dist = currXCoord - startingXCoord;
-
-  //document.getElementById("pos0").innerHTML = startingTileLeft;
 
   div.style.left = (startingTileLeft + dist) + "px";
 
