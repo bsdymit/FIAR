@@ -26,6 +26,7 @@ var startingYCoord;
 var startingTileLeft;
 var startingTileTop;
 
+var TILEWIDTH;
 var SQUAREMARGIN;
 
 window.onload = function setBoardAndTileSizes() {
@@ -39,7 +40,7 @@ window.onload = function setBoardAndTileSizes() {
   document.getElementById("board").style.paddingBottom = boardWidth + "px";
 
   setSquareWidthAndMargins((boardWidth - (SQUAREMARGIN * 5)) / 4);
-
+  TILEWIDTH = document.getElementById("pos0").getBoundingClientRect().width;
 }
 
 function setSquareWidthAndMargins(squareWidth){
@@ -48,6 +49,7 @@ function setSquareWidthAndMargins(squareWidth){
         elements[i].style.width = (squareWidth + "px");
         elements[i].style.paddingBottom = (squareWidth + "px");
         elements[i].style.marginLeft = SQUAREMARGIN + "px";
+        elements[i].style.marginTop = SQUAREMARGIN + "px";
     }
 }
 
@@ -66,7 +68,9 @@ document.addEventListener("touchstart", function(e) {
     startingTileTop = e.target.style.top;
 		selectedTileId = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
-		document.getElementById("pos0").innerHTML = selectedTile.style.width;
+		document.getElementById("pos0").innerHTML = TILEWIDTH;
+
+    selectedTile.style.zIndex = 20;
 
 		tileSelected(e.target.id);
 	}
@@ -120,6 +124,7 @@ function tileSelected(id) {
 
 function tileUnselected(id) {
 	document.getElementById(id).style.backgroundColor = "orange";
+  document.getElementById(id).style.zIndex = 0;
 }
 
 function validRightMove(currXCoord, currYCoord) {
@@ -170,34 +175,22 @@ function crossingBoundary(moveDirection) {
 }
 
 function moveTileRight(currXCoord, div) {
-  var dist = currXCoord - startingXCoord;
-
-  div.style.left = (startingTileLeft + dist) + "px";
+  div.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
+  document.getElementById("pos8").innerHTML = "poopy";
 
 }
 
 function moveTileLeft(currXCoord, div) {
-  var dist = currXCoord - startingXCoord;
-
-
-  div.style.left = (startingTileLeft + dist) + "px";
-
+  div.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
 function moveTileUp(currYCoord, div) {
-  var dist = currYCoord - startingYCoord;
-
-
-  div.style.top = (startingTileTop + dist) + "px";
-
+  div.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
 function moveTileDown(currYCoord, div) {
-  var dist = currYCoord - startingYCoord;
-
-
-  div.style.top = (startingTileTop + dist) + "px";
-
+  div.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
+  document.getElementById("pos0").innerHTML = "fart";
 }
 
 

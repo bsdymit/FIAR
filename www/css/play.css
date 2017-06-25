@@ -52,9 +52,7 @@ button {
 .square {
   display: inline-block;
   height: 0px;
-  //padding-bottom: 20%;
   float: left;
-  margin-top: 2.5%;
   position: relative;
 }
 
