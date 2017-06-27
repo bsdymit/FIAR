@@ -17,7 +17,7 @@
  * under the booty License.
  */
 
-var selectedTileId;
+var selectedTileNumber;
 var selectedTile;
 var previousXCoord;
 var previousYCoord;
@@ -28,6 +28,7 @@ var startingTileTop;
 
 var TILEWIDTH;
 var SQUAREMARGIN;
+var BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 window.onload = function setBoardAndTileSizes() {
 
@@ -66,7 +67,7 @@ document.addEventListener("touchstart", function(e) {
     startingYCoord = previousYCoord;
     startingTileLeft = e.target.style.left;
     startingTileTop = e.target.style.top;
-		selectedTileId = e.target.id.replace("pos", "");
+		selectedTileNumber = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
 		document.getElementById("pos0").innerHTML = TILEWIDTH;
 
@@ -130,7 +131,7 @@ function tileUnselected(id) {
 function validRightMove(currXCoord, currYCoord) {
   var isRightMove = false;
 
-	if(currXCoord > previousXCoord && !crossingBoundary("right"))
+	if(currXCoord > (startingXCoord + (TILEWIDTH/2)) && !crossingBoundary("right"))
     isRightMove = true;
 
   return isRightMove;
@@ -139,7 +140,7 @@ function validRightMove(currXCoord, currYCoord) {
 function validLeftMove(currXCoord, currYCoord) {
   var isLeftMove = false;
 
-  if(currXCoord < previousXCoord && !crossingBoundary("left"))
+  if(currXCoord < (startingXCoord - (TILEWIDTH/2)) && !crossingBoundary("left"))
     isLeftMove = true;
 
   return isLeftMove;
@@ -148,7 +149,7 @@ function validLeftMove(currXCoord, currYCoord) {
 function validUpMove(currXCoord, currYCoord) {
   var isUpMove = false;
 
-  if(currYCoord < previousYCoord && (Math.abs(currXCoord - previousXCoord) < Math.abs(currYCoord - previousYCoord)))
+  if(currYCoord < (startingYCoord - (TILEWIDTH/2)) && !crossingBoundary("up"))
     isUpMove = true;
 
   return isUpMove;
@@ -157,7 +158,7 @@ function validUpMove(currXCoord, currYCoord) {
 function validDownMove(currXCoord, currYCoord) {
   var isDownMove = false;
 
-  if(currYCoord > previousYCoord && (Math.abs(currXCoord - previousXCoord) < Math.abs(currYCoord - previousYCoord)))
+  if(currYCoord > (startingYCoord + (TILEWIDTH/2)) && !crossingBoundary("down"))
     isDownMove = true;
 
   return isDownMove;
@@ -165,10 +166,37 @@ function validDownMove(currXCoord, currYCoord) {
 
 function crossingBoundary(moveDirection) {
   var crossingBoundary = false;
-  var board = document.getElementById("board").getBoundingClientRect();
-  var tile = selectedTile.getBoundingClientRect();
 
-  if(tile.right >= (board.right - SQUAREMARGIN) || tile.left <= (board.left + SQUAREMARGIN*1 ))
+  var currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
+
+  document.getElementById("pos8").innerHTML = selectedTileNumber;
+
+  if(moveDirection == "right" &&
+     (currentPositionInBoardState == 3 ||
+      currentPositionInBoardState == 7 ||
+      currentPositionInBoardState == 11 ||
+      currentPositionInBoardState == 15))
+       crossingBoundary = true;
+
+  else if(moveDirection == "left" &&
+     (currentPositionInBoardState == 0 ||
+      currentPositionInBoardState == 4 ||
+      currentPositionInBoardState == 8 ||
+      currentPositionInBoardState == 12))
+       crossingBoundary = true;
+
+  else if(moveDirection == "up" &&
+     (currentPositionInBoardState == 0 ||
+      currentPositionInBoardState == 1 ||
+      currentPositionInBoardState == 2 ||
+      currentPositionInBoardState == 3))
+       crossingBoundary = true;
+
+  else if(moveDirection == "down" &&
+     (currentPositionInBoardState == 12 ||
+      currentPositionInBoardState == 13 ||
+      currentPositionInBoardState == 14 ||
+      currentPositionInBoardState == 15))
        crossingBoundary = true;
 
   return crossingBoundary;
@@ -176,8 +204,6 @@ function crossingBoundary(moveDirection) {
 
 function moveTileRight(currXCoord, div) {
   div.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
-  document.getElementById("pos8").innerHTML = "poopy";
-
 }
 
 function moveTileLeft(currXCoord, div) {
@@ -190,7 +216,6 @@ function moveTileUp(currYCoord, div) {
 
 function moveTileDown(currYCoord, div) {
   div.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
-  document.getElementById("pos0").innerHTML = "fart";
 }
 
 
