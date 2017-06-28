@@ -169,52 +169,72 @@ function crossingBoundary(moveDirection) {
 
   var currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
 
-  document.getElementById("pos8").innerHTML = selectedTileNumber;
+  document.getElementById("pos8").innerHTML = BOARDSTATE[currentPositionInBoardState+1];
 
   if(moveDirection == "right" &&
-     (currentPositionInBoardState == 3 ||
-      currentPositionInBoardState == 7 ||
+     ((currentPositionInBoardState == 3 ||
+      currentPositionInBoardState == 7  ||
       currentPositionInBoardState == 11 ||
-      currentPositionInBoardState == 15))
+      currentPositionInBoardState == 15) ||
+      (BOARDSTATE[currentPositionInBoardState+1] != 0 &&
+      BOARDSTATE[currentPositionInBoardState+1] != 3)))
        crossingBoundary = true;
 
   else if(moveDirection == "left" &&
-     (currentPositionInBoardState == 0 ||
+     ((currentPositionInBoardState == 0 ||
       currentPositionInBoardState == 4 ||
       currentPositionInBoardState == 8 ||
-      currentPositionInBoardState == 12))
+      currentPositionInBoardState == 12) ||
+      (BOARDSTATE[currentPositionInBoardState-1] != 0 &&
+      BOARDSTATE[currentPositionInBoardState-1] != 3)))
        crossingBoundary = true;
 
   else if(moveDirection == "up" &&
-     (currentPositionInBoardState == 0 ||
+     ((currentPositionInBoardState == 0 ||
       currentPositionInBoardState == 1 ||
       currentPositionInBoardState == 2 ||
-      currentPositionInBoardState == 3))
+      currentPositionInBoardState == 3) ||
+      (BOARDSTATE[currentPositionInBoardState-4] != 0 &&
+      BOARDSTATE[currentPositionInBoardState-4] != 3)))
        crossingBoundary = true;
 
   else if(moveDirection == "down" &&
-     (currentPositionInBoardState == 12 ||
+     ((currentPositionInBoardState == 12 ||
       currentPositionInBoardState == 13 ||
       currentPositionInBoardState == 14 ||
-      currentPositionInBoardState == 15))
+      currentPositionInBoardState == 15) ||
+      (BOARDSTATE[currentPositionInBoardState+4] != 0 &&
+      BOARDSTATE[currentPositionInBoardState+4] != 3)))
        crossingBoundary = true;
 
   return crossingBoundary;
 }
 
 function moveTileRight(currXCoord, div) {
+  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)+1));
+  blankTile.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
+
   div.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
 function moveTileLeft(currXCoord, div) {
+  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)-1));
+  blankTile.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
+
   div.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
 function moveTileUp(currYCoord, div) {
+  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)-4));
+  blankTile.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
+
   div.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
 function moveTileDown(currYCoord, div) {
+  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)+4));
+  blankTile.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
+
   div.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
