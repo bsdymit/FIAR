@@ -23,8 +23,9 @@ var previousXCoord;
 var previousYCoord;
 var startingXCoord;
 var startingYCoord;
-var startingTileLeft;
+var selectedTileLeft;
 var startingTileTop;
+var currentPositionInBoardState;
 
 var TILEWIDTH;
 var SQUAREMARGIN;
@@ -45,13 +46,15 @@ window.onload = function setBoardAndTileSizes() {
 }
 
 function setSquareWidthAndMargins(squareWidth){
-    var elements = document.getElementsByClassName("square");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].style.width = (squareWidth + "px");
-        elements[i].style.paddingBottom = (squareWidth + "px");
-        elements[i].style.marginLeft = SQUAREMARGIN + "px";
-        elements[i].style.marginTop = SQUAREMARGIN + "px";
+  var elements = document.getElementsByClassName("square");
+  for (var i = 0; i < 4; i++) {
+    for(var j = 0; j < 4; j++) {
+      elements[(4*i)+j].style.width = (squareWidth + "px");
+      elements[(4*i)+j].style.paddingBottom = (squareWidth + "px");
+      elements[(4*i)+j].style.left = (j*squareWidth) + ((j+1)*SQUAREMARGIN) + "px";
+      elements[(4*i)+j].style.top = (i*squareWidth) + ((i+1)*SQUAREMARGIN) + "px";
     }
+  }
 }
 
 var round = function (x, to) {
@@ -65,12 +68,11 @@ document.addEventListener("touchstart", function(e) {
     previousYCoord = e.changedTouches[0].clientY;
     startingXCoord = previousXCoord;
     startingYCoord = previousYCoord;
-    startingTileLeft = e.target.style.left;
+    selectedTileLeft = parseInt(e.target.style.left.replace("px", ""));
     startingTileTop = e.target.style.top;
 		selectedTileNumber = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
-		document.getElementById("pos0").innerHTML = TILEWIDTH;
-
+    currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
     selectedTile.style.zIndex = 20;
 
 		tileSelected(e.target.id);
@@ -83,30 +85,29 @@ document.addEventListener("touchmove", function(e) {
     {
       var currXCoord = e.changedTouches[0].clientX;
       var currYCoord = e.changedTouches[0].clientY;
-      var div = document.getElementById(e.target.id);
 
       if(validRightMove(currXCoord, currYCoord))
       {
-        moveTileRight(currXCoord, div);
-        div.style.backgroundColor = "red";
+        moveTileRight(currXCoord);
+        selectedTile.style.backgroundColor = "red";
       }
 
       else if(validLeftMove(currXCoord, currYCoord))
       {
-        moveTileLeft(currXCoord, div);
-        div.style.backgroundColor = "blue";
+        moveTileLeft(currXCoord);
+        selectedTile.style.backgroundColor = "blue";
       }
 
       else if(validUpMove(currXCoord, currYCoord))
       {
-        moveTileUp(currYCoord, div);
-        div.style.backgroundColor = "yellow";
+        moveTileUp(currYCoord);
+        selectedTile.style.backgroundColor = "yellow";
       }
 
       else if(validDownMove(currXCoord, currYCoord))
       {
-        moveTileDown(currYCoord, div);
-        div.style.backgroundColor = "purple";
+        moveTileDown(currYCoord);
+        selectedTile.style.backgroundColor = "purple";
       }
 
       previousXCoord = currXCoord;
@@ -167,8 +168,6 @@ function validDownMove(currXCoord, currYCoord) {
 function crossingBoundary(moveDirection) {
   var crossingBoundary = false;
 
-  var currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
-
   document.getElementById("pos8").innerHTML = BOARDSTATE[currentPositionInBoardState+1];
 
   if(moveDirection == "right" &&
@@ -210,32 +209,39 @@ function crossingBoundary(moveDirection) {
   return crossingBoundary;
 }
 
-function moveTileRight(currXCoord, div) {
+function moveTileRight(currXCoord) {
   var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)+1));
-  blankTile.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
+  blankTile.style.left = (parseInt(blankTile.style.left.replace("px", "")) - (TILEWIDTH + SQUAREMARGIN)) + "px";
 
-  div.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.left = (selectedTileLeft + TILEWIDTH + SQUAREMARGIN) + "px";
+
+    document.getElementById("pos0").innerHTML = blankTile.style.left;
+  var temp = BOARDSTATE[currentPositionInBoardState];
+  BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState+1];
+  BOARDSTATE[currentPositionInBoardState+1] = temp;
+
+  document.getElementById("pos15").innerHTML = selectedTile.id;
 }
 
-function moveTileLeft(currXCoord, div) {
+function moveTileLeft(currXCoord) {
   var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)-1));
   blankTile.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
 
-  div.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
-function moveTileUp(currYCoord, div) {
+function moveTileUp(currYCoord) {
   var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)-4));
   blankTile.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
 
-  div.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
-function moveTileDown(currYCoord, div) {
+function moveTileDown(currYCoord) {
   var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)+4));
   blankTile.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
 
-  div.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
 }
 
 

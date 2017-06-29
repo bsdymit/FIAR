@@ -53,7 +53,7 @@ button {
   display: inline-block;
   height: 0px;
   float: left;
-  position: relative;
+  position: absolute;
 }
 
 .initWhite {
