@@ -62,14 +62,14 @@ var round = function (x, to) {
 };
 
 document.addEventListener("touchstart", function(e) {
-	if(e.target.id != "board")
+	if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
 	{
 		previousXCoord = e.changedTouches[0].clientX;
     previousYCoord = e.changedTouches[0].clientY;
     startingXCoord = previousXCoord;
     startingYCoord = previousYCoord;
     selectedTileLeft = parseInt(e.target.style.left.replace("px", ""));
-    startingTileTop = e.target.style.top;
+    selectedTileTop = parseInt(e.target.style.top.replace("px", ""));
 		selectedTileNumber = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
     currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
@@ -81,7 +81,7 @@ document.addEventListener("touchstart", function(e) {
  	}, false);
 
 document.addEventListener("touchmove", function(e) {
-    if(e.target.id != "board")
+    if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
     {
       var currXCoord = e.changedTouches[0].clientX;
       var currYCoord = e.changedTouches[0].clientY;
@@ -89,25 +89,21 @@ document.addEventListener("touchmove", function(e) {
       if(validRightMove(currXCoord, currYCoord))
       {
         moveTileRight(currXCoord);
-        selectedTile.style.backgroundColor = "red";
       }
 
       else if(validLeftMove(currXCoord, currYCoord))
       {
         moveTileLeft(currXCoord);
-        selectedTile.style.backgroundColor = "blue";
       }
 
       else if(validUpMove(currXCoord, currYCoord))
       {
         moveTileUp(currYCoord);
-        selectedTile.style.backgroundColor = "yellow";
       }
 
       else if(validDownMove(currXCoord, currYCoord))
       {
         moveTileDown(currYCoord);
-        selectedTile.style.backgroundColor = "purple";
       }
 
       previousXCoord = currXCoord;
@@ -116,16 +112,14 @@ document.addEventListener("touchmove", function(e) {
  	}, false);
 
 document.addEventListener("touchend", function(e) {
-	if(e.target.id != "board")
+	if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
 		tileUnselected(e.target.id);
  	}, false);
 
 function tileSelected(id) {
-	document.getElementById(id).style.backgroundColor = "green";
 }
 
 function tileUnselected(id) {
-	document.getElementById(id).style.backgroundColor = "orange";
   document.getElementById(id).style.zIndex = 0;
 }
 
@@ -210,38 +204,47 @@ function crossingBoundary(moveDirection) {
 }
 
 function moveTileRight(currXCoord) {
-  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)+1));
+  var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState+1]));
   blankTile.style.left = (parseInt(blankTile.style.left.replace("px", "")) - (TILEWIDTH + SQUAREMARGIN)) + "px";
 
-  selectedTile.style.left = (selectedTileLeft + TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.left = (selectedTileLeft + (TILEWIDTH + SQUAREMARGIN)) + "px";
 
-    document.getElementById("pos0").innerHTML = blankTile.style.left;
   var temp = BOARDSTATE[currentPositionInBoardState];
   BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState+1];
   BOARDSTATE[currentPositionInBoardState+1] = temp;
-
-  document.getElementById("pos15").innerHTML = selectedTile.id;
 }
 
 function moveTileLeft(currXCoord) {
-  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)-1));
-  blankTile.style.left = (TILEWIDTH + SQUAREMARGIN) + "px";
+  var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState-1]));
+  blankTile.style.left = (parseInt(blankTile.style.left.replace("px", "")) + (TILEWIDTH + SQUAREMARGIN)) + "px";
 
-  selectedTile.style.left = -(TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.left = (selectedTileLeft - (TILEWIDTH + SQUAREMARGIN)) + "px";
+
+  var temp = BOARDSTATE[currentPositionInBoardState];
+  BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState-1];
+  BOARDSTATE[currentPositionInBoardState-1] = temp;
 }
 
 function moveTileUp(currYCoord) {
-  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)-4));
-  blankTile.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
+  var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState-4]));
+  blankTile.style.top = (parseInt(blankTile.style.top.replace("px", "")) + (TILEWIDTH + SQUAREMARGIN)) + "px";
 
-  selectedTile.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.top = (selectedTileTop - (TILEWIDTH + SQUAREMARGIN)) + "px";
+
+  var temp = BOARDSTATE[currentPositionInBoardState];
+  BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState-4];
+  BOARDSTATE[currentPositionInBoardState-4] = temp;
 }
 
 function moveTileDown(currYCoord) {
-  var blankTile = document.getElementById("pos" + (parseInt(selectedTileNumber)+4));
-  blankTile.style.top = -(TILEWIDTH + SQUAREMARGIN) + "px";
+  var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState+4]));
+  blankTile.style.top = (parseInt(blankTile.style.top.replace("px", "")) - (TILEWIDTH + SQUAREMARGIN)) + "px";
 
-  selectedTile.style.top = (TILEWIDTH + SQUAREMARGIN) + "px";
+  selectedTile.style.top = (selectedTileTop + (TILEWIDTH + SQUAREMARGIN)) + "px";
+
+  var temp = BOARDSTATE[currentPositionInBoardState];
+  BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState+4];
+  BOARDSTATE[currentPositionInBoardState+4] = temp;
 }
 
 
