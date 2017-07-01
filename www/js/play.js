@@ -64,50 +64,52 @@ var round = function (x, to) {
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
 	{
-		previousXCoord = e.changedTouches[0].clientX;
-    previousYCoord = e.changedTouches[0].clientY;
-    startingXCoord = previousXCoord;
-    startingYCoord = previousYCoord;
-    selectedTileLeft = parseInt(e.target.style.left.replace("px", ""));
-    selectedTileTop = parseInt(e.target.style.top.replace("px", ""));
+		startingXCoord = e.changedTouches[0].clientX;
+    startingYCoord = e.changedTouches[0].clientY;
 		selectedTileNumber = e.target.id.replace("pos", "");
     selectedTile = document.getElementById(e.target.id);
-    currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
     selectedTile.style.zIndex = 20;
 
 		tileSelected(e.target.id);
 	}
-
- 	}, false);
+}, false);
 
 document.addEventListener("touchmove", function(e) {
     if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
     {
+      currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
+      selectedTileLeft = parseInt(e.target.style.left.replace("px", ""));
+      selectedTileTop = parseInt(e.target.style.top.replace("px", ""));
       var currXCoord = e.changedTouches[0].clientX;
       var currYCoord = e.changedTouches[0].clientY;
 
       if(validRightMove(currXCoord, currYCoord))
       {
-        moveTileRight(currXCoord);
+        moveTileRight();
+        startingXCoord = currXCoord;
+        startingYCoord = currYCoord;
       }
 
       else if(validLeftMove(currXCoord, currYCoord))
       {
-        moveTileLeft(currXCoord);
+        moveTileLeft();
+        startingXCoord = currXCoord;
+        startingYCoord = currYCoord;
       }
 
       else if(validUpMove(currXCoord, currYCoord))
       {
-        moveTileUp(currYCoord);
+        moveTileUp();
+        startingXCoord = currXCoord;
+        startingYCoord = currYCoord;
       }
 
       else if(validDownMove(currXCoord, currYCoord))
       {
-        moveTileDown(currYCoord);
+        moveTileDown();
+        startingXCoord = currXCoord;
+        startingYCoord = currYCoord;
       }
-
-      previousXCoord = currXCoord;
-      previousYCoord = currYCoord;
     }
  	}, false);
 
@@ -162,8 +164,6 @@ function validDownMove(currXCoord, currYCoord) {
 function crossingBoundary(moveDirection) {
   var crossingBoundary = false;
 
-  document.getElementById("pos8").innerHTML = BOARDSTATE[currentPositionInBoardState+1];
-
   if(moveDirection == "right" &&
      ((currentPositionInBoardState == 3 ||
       currentPositionInBoardState == 7  ||
@@ -171,7 +171,10 @@ function crossingBoundary(moveDirection) {
       currentPositionInBoardState == 15) ||
       (BOARDSTATE[currentPositionInBoardState+1] != 0 &&
       BOARDSTATE[currentPositionInBoardState+1] != 3)))
+  {
+        document.getElementById("pos4").innerHTML = "right";
        crossingBoundary = true;
+  }
 
   else if(moveDirection == "left" &&
      ((currentPositionInBoardState == 0 ||
@@ -203,7 +206,7 @@ function crossingBoundary(moveDirection) {
   return crossingBoundary;
 }
 
-function moveTileRight(currXCoord) {
+function moveTileRight() {
   var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState+1]));
   blankTile.style.left = (parseInt(blankTile.style.left.replace("px", "")) - (TILEWIDTH + SQUAREMARGIN)) + "px";
 
@@ -212,9 +215,11 @@ function moveTileRight(currXCoord) {
   var temp = BOARDSTATE[currentPositionInBoardState];
   BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState+1];
   BOARDSTATE[currentPositionInBoardState+1] = temp;
+
+  document.getElementById("pos12").innerHTML = BOARDSTATE.toString();
 }
 
-function moveTileLeft(currXCoord) {
+function moveTileLeft() {
   var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState-1]));
   blankTile.style.left = (parseInt(blankTile.style.left.replace("px", "")) + (TILEWIDTH + SQUAREMARGIN)) + "px";
 
@@ -225,7 +230,7 @@ function moveTileLeft(currXCoord) {
   BOARDSTATE[currentPositionInBoardState-1] = temp;
 }
 
-function moveTileUp(currYCoord) {
+function moveTileUp() {
   var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState-4]));
   blankTile.style.top = (parseInt(blankTile.style.top.replace("px", "")) + (TILEWIDTH + SQUAREMARGIN)) + "px";
 
@@ -236,7 +241,7 @@ function moveTileUp(currYCoord) {
   BOARDSTATE[currentPositionInBoardState-4] = temp;
 }
 
-function moveTileDown(currYCoord) {
+function moveTileDown() {
   var blankTile = document.getElementById("pos" + (BOARDSTATE[currentPositionInBoardState+4]));
   blankTile.style.top = (parseInt(blankTile.style.top.replace("px", "")) - (TILEWIDTH + SQUAREMARGIN)) + "px";
 
