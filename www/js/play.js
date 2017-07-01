@@ -26,6 +26,8 @@ var startingYCoord;
 var selectedTileLeft;
 var startingTileTop;
 var currentPositionInBoardState;
+var distanceFromStart;
+var previousMoveDirection;
 
 var TILEWIDTH;
 var SQUAREMARGIN;
@@ -66,9 +68,12 @@ document.addEventListener("touchstart", function(e) {
 	{
 		startingXCoord = e.changedTouches[0].clientX;
     startingYCoord = e.changedTouches[0].clientY;
-		selectedTileNumber = e.target.id.replace("pos", "");
+		selectedTileNumber = parseInt(e.target.id.replace("pos", ""));
+    selectedTilePosition = BOARDSTATE.indexOf(selectedTileNumber);
     selectedTile = document.getElementById(e.target.id);
     selectedTile.style.zIndex = 20;
+    distanceFromStart = 0;
+    previousMoveDirection = "none";
 
 		tileSelected(e.target.id);
 	}
@@ -77,17 +82,23 @@ document.addEventListener("touchstart", function(e) {
 document.addEventListener("touchmove", function(e) {
     if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
     {
-      currentPositionInBoardState = BOARDSTATE.indexOf(parseInt(selectedTileNumber));
+      currentPositionInBoardState = BOARDSTATE.indexOf(selectedTileNumber);
       selectedTileLeft = parseInt(e.target.style.left.replace("px", ""));
       selectedTileTop = parseInt(e.target.style.top.replace("px", ""));
       var currXCoord = e.changedTouches[0].clientX;
       var currYCoord = e.changedTouches[0].clientY;
+
+
+      document.getElementById("pos0").innerHTML = distanceFromStart;
 
       if(validRightMove(currXCoord, currYCoord))
       {
         moveTileRight();
         startingXCoord = currXCoord;
         startingYCoord = currYCoord;
+        currentPositionInBoardState = BOARDSTATE.indexOf(selectedTileNumber);
+        distanceFromStart = Math.abs(selectedTilePosition - currentPositionInBoardState);
+        previousMoveDirection = "right";
       }
 
       else if(validLeftMove(currXCoord, currYCoord))
@@ -95,6 +106,9 @@ document.addEventListener("touchmove", function(e) {
         moveTileLeft();
         startingXCoord = currXCoord;
         startingYCoord = currYCoord;
+        currentPositionInBoardState = BOARDSTATE.indexOf(selectedTileNumber);
+        distanceFromStart = Math.abs(selectedTilePosition - currentPositionInBoardState);
+        previousMoveDirection = "left";
       }
 
       else if(validUpMove(currXCoord, currYCoord))
@@ -102,6 +116,9 @@ document.addEventListener("touchmove", function(e) {
         moveTileUp();
         startingXCoord = currXCoord;
         startingYCoord = currYCoord;
+        currentPositionInBoardState = BOARDSTATE.indexOf(selectedTileNumber);
+        distanceFromStart = Math.abs(selectedTilePosition - currentPositionInBoardState);
+        previousMoveDirection = "up";
       }
 
       else if(validDownMove(currXCoord, currYCoord))
@@ -109,6 +126,9 @@ document.addEventListener("touchmove", function(e) {
         moveTileDown();
         startingXCoord = currXCoord;
         startingYCoord = currYCoord;
+        currentPositionInBoardState = BOARDSTATE.indexOf(selectedTileNumber);
+        distanceFromStart = Math.abs(selectedTilePosition - currentPositionInBoardState);
+        previousMoveDirection = "down";
       }
     }
  	}, false);
@@ -126,39 +146,51 @@ function tileUnselected(id) {
 }
 
 function validRightMove(currXCoord, currYCoord) {
-  var isRightMove = false;
+  var validRightMove = false;
 
-	if(currXCoord > (startingXCoord + (TILEWIDTH/2)) && !crossingBoundary("right"))
-    isRightMove = true;
+	if(currXCoord > (startingXCoord + (TILEWIDTH/2)) &&
+     !crossingBoundary("right") &&
+     ((previousMoveDirection == "left" && distanceFromStart > 0) ||
+      distanceFromStart == 0))
+    validRightMove = true;
 
-  return isRightMove;
+  return validRightMove;
 }
 
 function validLeftMove(currXCoord, currYCoord) {
-  var isLeftMove = false;
+  var validLeftMove = false;
 
-  if(currXCoord < (startingXCoord - (TILEWIDTH/2)) && !crossingBoundary("left"))
-    isLeftMove = true;
+  if(currXCoord < (startingXCoord - (TILEWIDTH/2)) &&
+     !crossingBoundary("left") &&
+     ((previousMoveDirection == "right" && distanceFromStart > 0) ||
+      distanceFromStart == 0))
+    validLeftMove = true;
 
-  return isLeftMove;
+  return validLeftMove;
 }
 
 function validUpMove(currXCoord, currYCoord) {
-  var isUpMove = false;
+  var validUpMove = false;
 
-  if(currYCoord < (startingYCoord - (TILEWIDTH/2)) && !crossingBoundary("up"))
-    isUpMove = true;
+  if(currYCoord < (startingYCoord - (TILEWIDTH/2)) &&
+     !crossingBoundary("up") &&
+     ((previousMoveDirection == "down" && distanceFromStart > 0) ||
+      distanceFromStart == 0))
+    validUpMove = true;
 
-  return isUpMove;
+  return validUpMove;
 }
 
 function validDownMove(currXCoord, currYCoord) {
-  var isDownMove = false;
+  var validDownMove = false;
 
-  if(currYCoord > (startingYCoord + (TILEWIDTH/2)) && !crossingBoundary("down"))
-    isDownMove = true;
+  if(currYCoord > (startingYCoord + (TILEWIDTH/2)) &&
+     !crossingBoundary("down") &&
+     ((previousMoveDirection == "up" && distanceFromStart > 0) ||
+      distanceFromStart == 0))
+    validDownMove = true;
 
-  return isDownMove;
+  return validDownMove;
 }
 
 function crossingBoundary(moveDirection) {
@@ -171,10 +203,7 @@ function crossingBoundary(moveDirection) {
       currentPositionInBoardState == 15) ||
       (BOARDSTATE[currentPositionInBoardState+1] != 0 &&
       BOARDSTATE[currentPositionInBoardState+1] != 3)))
-  {
-        document.getElementById("pos4").innerHTML = "right";
        crossingBoundary = true;
-  }
 
   else if(moveDirection == "left" &&
      ((currentPositionInBoardState == 0 ||
@@ -215,8 +244,6 @@ function moveTileRight() {
   var temp = BOARDSTATE[currentPositionInBoardState];
   BOARDSTATE[currentPositionInBoardState] = BOARDSTATE[currentPositionInBoardState+1];
   BOARDSTATE[currentPositionInBoardState+1] = temp;
-
-  document.getElementById("pos12").innerHTML = BOARDSTATE.toString();
 }
 
 function moveTileLeft() {
