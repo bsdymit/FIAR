@@ -55,20 +55,20 @@ document.addEventListener("touchmove", function(e) {
       var currXCoord = e.changedTouches[0].clientX;
       var currYCoord = e.changedTouches[0].clientY;
 
+      if(!lastMovedTile(selectedTileNumber))
+      {
+        if(validRightMove(currXCoord, currYCoord))
+          moveTileRight(currXCoord, currYCoord);
 
-      document.getElementById("pos0").innerHTML = distanceFromStart;
+        else if(validLeftMove(currXCoord, currYCoord))
+          moveTileLeft(currXCoord, currYCoord);
 
-      if(validRightMove(currXCoord, currYCoord))
-        moveTileRight(currXCoord, currYCoord);
+        else if(validUpMove(currXCoord, currYCoord))
+          moveTileUp(currXCoord, currYCoord);
 
-      else if(validLeftMove(currXCoord, currYCoord))
-        moveTileLeft(currXCoord, currYCoord);
-
-      else if(validUpMove(currXCoord, currYCoord))
-        moveTileUp(currXCoord, currYCoord);
-
-      else if(validDownMove(currXCoord, currYCoord))
-        moveTileDown(currXCoord, currYCoord);
+        else if(validDownMove(currXCoord, currYCoord))
+          moveTileDown(currXCoord, currYCoord);
+      }
     }
  	}, false);
 
@@ -83,9 +83,16 @@ function tileSelected(id) {
 
 function tileUnselected(id) {
   document.getElementById(id).style.zIndex = 0;
-  var winningColor = checkForWinner();
-  if(winningColor == "red" || winningColor == "blue")
-    endGame(winningColor);
+
+  if(distanceFromStart > 0)
+  {
+    var winningColor = checkForWinner();
+    if(winningColor == "red" || winningColor == "blue")
+      endGame(winningColor);
+
+    setLastMovedTileNumber(selectedTileNumber);
+    nextPlayer();
+  }
 }
 
 

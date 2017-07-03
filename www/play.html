@@ -19,8 +19,8 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/play.css" />
-    <title>FIAR Menu</title>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/Players.js"></script>
     <script type="text/javascript" src="js/BoardSetup.js"></script>
     <script type="text/javascript" src="js/MoveTiles.js"></script>
     <script type="text/javascript" src="js/ValidTileMoves.js"></script>
@@ -29,6 +29,7 @@
 </head>
 
 <body>
+  <div id="currentPlayer"></div>
   <div id="board">
     <div id="pos0" class="square white"></div>
     <div id="pos1" class="square blue"></div>
@@ -46,6 +47,10 @@
     <div id="pos13" class="square red"></div>
     <div id="pos14" class="square blue"></div>
 	  <div id="pos15" class="square red"></div>
+  </div>
+  <div id="gameMenuOptions">
+    <a type="button" href="index.html" id="quitToMenu" class="inGameButton"><button>Quit</button></a>
+    <input type="button" id="restartGame" class="inGameButton" value="Restart" onClick="window.location.reload()">
   </div>
 </body>
 

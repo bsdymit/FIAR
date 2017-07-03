@@ -21,6 +21,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+  background-image: url("../img/wooden-texture-background.jpg");
 }
 
 /* Landscape layout (with min-width) */
@@ -57,26 +58,58 @@ button {
 }
 
 .white {
-  //border: white solid;
-  background-color: white;
 }
 
 .red {
-  //border: black solid;
-  background-color: red;
+  background-image: url("../img/red-tiles.jpg");
 }
 
 .blue {
-//  border: black solid;
-  background-color: blue;
+  background-image: url("../img/blue-tiles.jpg");
+}
+
+.inGameButton {
+  float: left;
+  background-color: orange;
+  border-radius: 10px;
 }
 
 #board {
-  background: white;
   position: relative;
   height: 0;
-  //padding-bottom: 90%;
-  outline: blue solid thick;
+  outline: black solid thick;
   margin:auto;
-  margin-top: 20%;
+  margin-top: 10%;
+}
+
+#currentPlayer {
+  background-color: red;
+  border-radius: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 10px;
+  position: relative;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  text-align: center;
+}
+
+#gameMenuOptions {
+  margin: auto;
+  margin-top: 10%;
+  padding: 10px;
+  position: relative;
+}
+
+#quitToMenu {
+  margin-left: 5%;
+  padding: 10px;
+  position: relative;
+}
+
+#restartGame {
+  margin-left: 5%;
+  padding: 10px;
+  position: relative;
 }
