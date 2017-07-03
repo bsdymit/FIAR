@@ -95,6 +95,18 @@ function tileUnselected(id) {
   }
 }
 
+function confirmRestart() {
+  if (confirm("Restart the game?") == true)
+    window.location.reload()
+
+  document.getElementById("demo").innerHTML = txt;
+}
+
+function confirmQuitGame() {
+  if (confirm("Quit to the main menu?") == true)
+    window.location.href = "index.html";
+}
+
 
 
 
