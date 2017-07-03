@@ -83,10 +83,10 @@ function tileSelected(id) {
 
 function tileUnselected(id) {
   document.getElementById(id).style.zIndex = 0;
+  var winningColor = checkForWinner();
+  if(winningColor == "red" || winningColor == "blue")
+    endGame(winningColor);
 }
-
-
-
 
 
 

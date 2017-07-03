@@ -56,17 +56,17 @@ button {
   position: absolute;
 }
 
-.initWhite {
+.white {
   //border: white solid;
   background-color: white;
 }
 
-.initRed {
+.red {
   //border: black solid;
   background-color: red;
 }
 
-.initBlue {
+.blue {
 //  border: black solid;
   background-color: blue;
 }
