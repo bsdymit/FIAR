@@ -1,0 +1,116 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-image: url("../img/wooden-texture-background.jpg");
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position:left center;
+        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
+        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    color: red;
+    font-size:100px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+button {
+  height: 25%;
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.square {
+  display: inline-block;
+  height: 0px;
+  float: left;
+  position: absolute;
+}
+
+.white {
+}
+
+.red {
+  background-image: url("../img/red-tiles.jpg");
+}
+
+.blue {
+  background-image: url("../img/blue-tiles.jpg");
+}
+
+.inGameButton {
+  float: left;
+  background-color: orange;
+  border-radius: 10px;
+  width: 41%;
+}
+
+#board {
+  position: relative;
+  height: 0;
+  outline: black solid thick;
+  margin:auto;
+  margin-top: 10%;
+}
+
+#currentPlayer {
+  background-color: red;
+  border-radius: 25px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  padding: 10px;
+  position: relative;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  text-align: center;
+}
+
+#gameMenuOptions {
+  margin: auto;
+  margin-top: 10%;
+  padding: 10px;
+  position: relative;
+}
+
+#quitToMenu {
+  margin-left: 5%;
+  padding: 10px;
+  position: relative;
+}
+
+#restartGame {
+  margin-left: 5%;
+  padding: 10px;
+  position: relative;
+}

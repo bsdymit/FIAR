@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/play.css" />
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/Players.js"></script>
+    <script type="text/javascript" src="js/BoardSetup.js"></script>
+    <script type="text/javascript" src="js/MoveTiles.js"></script>
+    <script type="text/javascript" src="js/ValidTileMoves.js"></script>
+    <script type="text/javascript" src="js/EndGame.js"></script>
+    <script type="text/javascript" src="js/play.js"></script>
+</head>
+
+<body>
+  <div id="currentPlayer"></div>
+  <div id="board">
+    <div id="pos0" class="square white"></div>
+    <div id="pos1" class="square blue"></div>
+    <div id="pos2" class="square red"></div>
+    <div id="pos3" class="square white"></div>
+    <div id="pos4" class="square blue"></div>
+    <div id="pos5" class="square red"></div>
+    <div id="pos6" class="square blue"></div>
+    <div id="pos7" class="square red"></div>
+    <div id="pos8" class="square red"></div>
+    <div id="pos9" class="square blue"></div>
+    <div id="pos10" class="square red"></div>
+    <div id="pos11" class="square blue"></div>
+    <div id="pos12" class="square blue"></div>
+    <div id="pos13" class="square red"></div>
+    <div id="pos14" class="square blue"></div>
+	  <div id="pos15" class="square red"></div>
+  </div>
+  <div id="gameMenuOptions">
+    <button id="quitToMenu" class="inGameButton" onclick="confirmQuitGame()">Quit</button>
+    <button id="restartGame" class="inGameButton" onclick="confirmRestart()">Restart</button>
+  </div>
+</body>
+
+</html>
