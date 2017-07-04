@@ -78,7 +78,7 @@ document.addEventListener("touchend", function(e) {
  	}, false);
 
 function tileSelected(id) {
-    selectedTile.style.zIndex = 20;
+   selectedTile.style.zIndex = 20;
 }
 
 function tileUnselected(id) {
@@ -95,21 +95,10 @@ function tileUnselected(id) {
   }
 }
 
-function confirmRestart() {
-  if (confirm("Restart the game?") == true)
-    window.location.reload()
-
-  document.getElementById("demo").innerHTML = txt;
+function restartGame() {
+  window.location.reload()
 }
 
-function confirmQuitGame() {
-  if (confirm("Quit to the main menu?") == true)
-    window.location.href = "index.html";
+function quitGame() {
+  window.location.href = "index.html";
 }
-
-
-
-
-
-
-

@@ -17,9 +17,12 @@
     * Create your own at http://cspisawesome.com
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-
+    <link rel="stylesheet" type="text/css" href="css/dialog/dialog-henry.css" />
+    <link rel="stylesheet" type="text/css" href="css/dialog/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/dialog/dialog.css" />
     <link rel="stylesheet" type="text/css" href="css/play.css" />
-    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/dialog/modernizr.custom.js"></script>
     <script type="text/javascript" src="js/Players.js"></script>
     <script type="text/javascript" src="js/BoardSetup.js"></script>
     <script type="text/javascript" src="js/MoveTiles.js"></script>
@@ -48,10 +51,50 @@
     <div id="pos14" class="square blue"></div>
 	  <div id="pos15" class="square red"></div>
   </div>
-  <div id="gameMenuOptions">
-    <button id="quitToMenu" class="inGameButton" onclick="confirmQuitGame()">Quit</button>
-    <button id="restartGame" class="inGameButton" onclick="confirmRestart()">Restart</button>
+  <div id="gameMenuOptionButtons">
+    <div class="button-wrap">
+      <button quit-dialog="quitdialog" class="trigger">Quit</button>
+      <button restart-dialog="restartdialog" class="trigger">Restart</button>
+    </div>
+  </div>
+
+  <div id="quitdialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+      <h2>Are you sure you want to quit?</h2>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">Yes</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
+    </div>
+  </div>
+
+  <div id="restartdialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+      <h2>Are you sure you want to restart?</h2>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame()">Yes</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
+    </div>
   </div>
 </body>
+
+<script src="js/dialog/classie.js"></script>
+<script src="js/dialog/dialogFx.js"></script>
+<script>
+	(function() {
+
+		var quitdlgtrigger = document.querySelector( '[quit-dialog]' ),
+			quitdialog = document.getElementById( quitdlgtrigger.getAttribute( 'quit-dialog' ) ),
+			dlg = new DialogFx( quitdialog );
+
+		quitdlgtrigger.addEventListener( 'click', dlg.toggle.bind(dlg) );
+
+    var restartdlgtrigger = document.querySelector( '[restart-dialog]' ),
+			restartdialog = document.getElementById( restartdlgtrigger.getAttribute( 'restart-dialog' ) ),
+			dlg = new DialogFx( restartdialog );
+
+		restartdlgtrigger.addEventListener( 'click', dlg.toggle.bind(dlg) );
+
+	})();
+</script>
 
 </html>

@@ -45,9 +45,9 @@ h1 {
 }
 
 button {
+  border-radius: 10px;
   height: 25%;
-  width: 50%;
-  margin-bottom: 10px;
+  width: 45%;
 }
 
 .square {
@@ -61,11 +61,11 @@ button {
 }
 
 .red {
-  background-image: url("../img/red-tiles.jpg");
+  background-color: #9b0f0f;
 }
 
 .blue {
-  background-image: url("../img/blue-tiles.jpg");
+  background-color: #032596;
 }
 
 .inGameButton {
@@ -73,6 +73,18 @@ button {
   background-color: orange;
   border-radius: 10px;
   width: 41%;
+}
+
+.inGameDialogBoxes {
+  background-color: #dedee0;;
+  position: absolute;
+  border-radius: .25em .25em .4em .4em;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+  width: 50%;
+  margin:auto;
+  z-index: 1;
 }
 
 #board {
@@ -96,20 +108,20 @@ button {
   text-align: center;
 }
 
-#gameMenuOptions {
+#gameMenuOptionButtons {
   margin: auto;
   margin-top: 10%;
   padding: 10px;
   position: relative;
 }
 
-#quitToMenu {
+#quitToMenuButton {
   margin-left: 5%;
   padding: 10px;
   position: relative;
 }
 
-#restartGame {
+#restartGameButton {
   margin-left: 5%;
   padding: 10px;
   position: relative;
