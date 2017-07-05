@@ -75,6 +75,15 @@
       <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
     </div>
   </div>
+
+  <div id="endgamedialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+      <h2><strong id="winner">wins!</strong>Do you want to play again?</h2>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame()">Yes</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">No</button></div>
+    </div>
+  </div>
 </body>
 
 <script src="js/dialog/classie.js"></script>
@@ -82,7 +91,7 @@
 <script>
 	(function() {
 
-		var quitdlgtrigger = document.querySelector( '[quit-dialog]' ),
+		var quitdlgtrigger = document.querySelector( '[quit-dialog]' );
 			quitdialog = document.getElementById( quitdlgtrigger.getAttribute( 'quit-dialog' ) ),
 			dlg = new DialogFx( quitdialog );
 

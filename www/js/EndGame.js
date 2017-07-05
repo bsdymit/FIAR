@@ -102,7 +102,10 @@ function checkDiagsForWinner() {
   return winningColor;
 }
 
-
 function endGame(winningColor) {
-  alert(winningColor + " Wins!");
+    document.getElementById("winner").innerHTML = winningColor.charAt(0).toUpperCase() + winningColor.slice(1) + " wins! ";
+
+		var endgamedialog = document.getElementById( 'endgamedialog'  );
+		var dlg = new DialogFx( endgamedialog );
+    dlg.toggle(dlg);
 }
