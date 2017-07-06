@@ -79,10 +79,12 @@ document.addEventListener("touchend", function(e) {
 
 function tileSelected() {
   selectedTile.style.zIndex = 20;
+  selectedTile.style.opacity = .5;
 }
 
 function tileUnselected(id) {
   document.getElementById(id).style.zIndex = 0;
+  selectedTile.style.opacity = 1;
 
   if(distanceFromStart > 0)
   {
