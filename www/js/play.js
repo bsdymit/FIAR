@@ -42,7 +42,7 @@ document.addEventListener("touchstart", function(e) {
     distanceFromStart = 0;
     previousMoveDirection = "none";
 
-		tileSelected(e.target.id);
+		tileSelected();
 	}
 }, false);
 
@@ -77,8 +77,8 @@ document.addEventListener("touchend", function(e) {
 		tileUnselected(e.target.id);
  	}, false);
 
-function tileSelected(id) {
-   selectedTile.style.zIndex = 20;
+function tileSelected() {
+  selectedTile.style.zIndex = 20;
 }
 
 function tileUnselected(id) {
@@ -96,10 +96,10 @@ function tileUnselected(id) {
 }
 
 function restartGame(afterEndGame) {
-  if(afterEndGame == true)
+   if(afterEndGame == true)
   {
-    window.location.reload();
-    document.getElementById("pos0").innerHTML = "HEREY";
+    setBoardAndTileSizes();
+    BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   }
   else
     window.location.reload();
