@@ -60,12 +60,12 @@ button {
 .white {
 }
 
-.red {
-  background-color: #9b0f0f;
+.color1 {
+  background-color: teal;
 }
 
-.blue {
-  background-color: #032596;
+.color2 {
+  background-color: grey;
 }
 
 .inGameButton {
@@ -96,7 +96,6 @@ button {
 }
 
 #currentPlayer {
-  background-color: red;
   border-radius: 25px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;

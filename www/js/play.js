@@ -87,16 +87,22 @@ function tileUnselected(id) {
   if(distanceFromStart > 0)
   {
     var winningColor = checkForWinner();
-    if(winningColor == "red" || winningColor == "blue")
-      endGame(winningColor);
+    if(winningColor == playerColors[0] || winningColor == playerColors[1])
+      endGame(players[playerColors.indexOf(winningColor)]);
 
     setLastMovedTileNumber(selectedTileNumber);
     nextPlayer();
   }
 }
 
-function restartGame() {
-  window.location.reload()
+function restartGame(afterEndGame) {
+  if(afterEndGame == true)
+  {
+    window.location.reload();
+    document.getElementById("pos0").innerHTML = "HEREY";
+  }
+  else
+    window.location.reload();
 }
 
 function quitGame() {

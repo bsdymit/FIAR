@@ -35,26 +35,36 @@
   <div id="currentPlayer"></div>
   <div id="board">
     <div id="pos0" class="square white"></div>
-    <div id="pos1" class="square blue"></div>
-    <div id="pos2" class="square red"></div>
+    <div id="pos1" class="square color2"></div>
+    <div id="pos2" class="square color1"></div>
     <div id="pos3" class="square white"></div>
-    <div id="pos4" class="square blue"></div>
-    <div id="pos5" class="square red"></div>
-    <div id="pos6" class="square blue"></div>
-    <div id="pos7" class="square red"></div>
-    <div id="pos8" class="square red"></div>
-    <div id="pos9" class="square blue"></div>
-    <div id="pos10" class="square red"></div>
-    <div id="pos11" class="square blue"></div>
-    <div id="pos12" class="square blue"></div>
-    <div id="pos13" class="square red"></div>
-    <div id="pos14" class="square blue"></div>
-	  <div id="pos15" class="square red"></div>
+    <div id="pos4" class="square color2"></div>
+    <div id="pos5" class="square color1"></div>
+    <div id="pos6" class="square color2"></div>
+    <div id="pos7" class="square color1"></div>
+    <div id="pos8" class="square color1"></div>
+    <div id="pos9" class="square color2"></div>
+    <div id="pos10" class="square color1"></div>
+    <div id="pos11" class="square color2"></div>
+    <div id="pos12" class="square color2"></div>
+    <div id="pos13" class="square color1"></div>
+    <div id="pos14" class="square color2"></div>
+	  <div id="pos15" class="square color1"></div>
   </div>
   <div id="gameMenuOptionButtons">
     <div class="button-wrap">
       <button quit-dialog="quitdialog" class="trigger">Quit</button>
       <button restart-dialog="restartdialog" class="trigger">Restart</button>
+    </div>
+  </div>
+
+  <div id="playerEntryDialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+      <h2>Enter Player <span id="playerEntryPrompt">One</span>'s name:</h2>
+      <div><input type=text id="playerInput"/></div>
+      <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
+      <div><button class="innerDialogButtons action" id="enterPlayerSkip" onClick="enterPlayer()">Skip</button></div>
     </div>
   </div>
 
@@ -71,7 +81,7 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Are you sure you want to restart?</h2>
-      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame()">Yes</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(false)">Yes</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
     </div>
   </div>
@@ -80,7 +90,7 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2><strong id="winner">wins!</strong>Do you want to play again?</h2>
-      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame()">Yes</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame('true')">Yes</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">No</button></div>
     </div>
   </div>

@@ -3,14 +3,13 @@ var TILEWIDTH;
 
 window.onload = function setUpScreen() {
   setBoardAndTileSizes();
-  setGameDialogBoxes();
-  document.getElementById("currentPlayer").innerHTML = getCurrentPlayer();
-  document.getElementById("currentPlayer").style.color = "black";
+  setPlayerEntryDialogBoxes();
 }
 
-function setGameDialogBoxes() {
-/*   document.getElementById("quitToMenuScreen").style.left = screen.width/4 + "px";
-  document.getElementById("quitToMenuScreen").style.top = screen.height/4 + "px"; */
+function setPlayerEntryDialogBoxes() {
+  var playerEntryDialog = document.getElementById( 'playerEntryDialog'  );
+		var dlg = new DialogFx( playerEntryDialog );
+    dlg.toggle(dlg);
 }
 
 function setBoardAndTileSizes() {
