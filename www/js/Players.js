@@ -37,7 +37,9 @@ function enterPlayer() {
 }
 
 function setCurrentPlayer(currentPlayer) {
-   this.currentPlayer = currentPlayer;
+  this.currentPlayer = currentPlayer;
+  document.getElementById("currentPlayer").innerHTML = currentPlayer;
+  document.getElementById("currentPlayer").style.backgroundColor = playerColors[players.indexOf(currentPlayer)];
 }
 
 function getCurrentPlayer() {
