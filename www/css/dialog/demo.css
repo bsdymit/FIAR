@@ -1,14 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway:200,600,700,400);
-
 @font-face {
-	font-weight: normal;
-	font-style: normal;
-	font-family: 'codropsicons';
-	src:url('../fonts/codropsicons/codropsicons.eot');
-	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
-		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
-		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+    font-family: appFont;
+    src: url(fonts/Iceberg-Regular.ttf);
 }
 
 *, *:after, *:before { -webkit-box-sizing: border-box; box-sizing: border-box; }
@@ -17,10 +9,10 @@
 
 body {
 	background: #cae4b6;
-	color: #c94e50;
+	color: black;
 	font-weight: 400;
 	font-size: 1em;
-	font-family: 'Raleway', Arial, sans-serif;
+	font-family: appFont;
 }
 
 a, button {
@@ -39,8 +31,8 @@ button {
 	outline: none;
 	font-weight: 600;
 	border: none;
-	color: #fff;
-	background: #c94e50;
+	color: teal;
+	background: black;
 }
 
 .content {
@@ -62,7 +54,7 @@ button {
 }
 
 button.trigger {
-	background: #c94e50;
+	background: black;
 	color: #fff;
 	border: none;
 }

@@ -92,17 +92,21 @@ function tileUnselected(id) {
     if(winningColor == playerColors[0] || winningColor == playerColors[1])
       endGame(players[playerColors.indexOf(winningColor)]);
 
+    if(lastMovedTileNumber != -1)
+      document.getElementById("pos" + lastMovedTileNumber).style.border = "";
     setLastMovedTileNumber(selectedTileNumber);
+    document.getElementById("pos" + lastMovedTileNumber).style.border = "2px white dotted";
     nextPlayer();
   }
 }
 
 function restartGame(afterEndGame) {
-   if(afterEndGame == true)
+  if(afterEndGame == true)
   {
     setBoardAndTileSizes();
     BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     setCurrentPlayer(players[0]);
+    document.getElementById("pos" + lastMovedTileNumber).style.border = "";
   }
   else
     window.location.reload();

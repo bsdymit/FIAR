@@ -1,3 +1,8 @@
+@font-face {
+    font-family: appFont;
+    src: url(../fonts/Iceberg-Regular.ttf);
+}
+
 .dialog,
 .dialog__overlay {
 	width: 100%;
@@ -42,6 +47,7 @@
 	position: relative;
 	z-index: 5;
 	opacity: 0;
+  font-family: appFont;
 }
 
 .dialog--open .dialog__content {
@@ -53,6 +59,7 @@
 	margin: 0;
 	font-weight: 400;
 	font-size: 2em;
+  font-family: appFont;
 	padding: 0 0 2em;
 	margin: 0;
 }
