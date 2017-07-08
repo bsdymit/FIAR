@@ -20,6 +20,7 @@ li {
 
 body {
   background-image:url(../img/wooden-texture-background.jpg);
+  background-attachment: fixed;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -31,10 +32,26 @@ body {
 
 h1 {
   color: teal;
+  font-size: 3em;
 }
 
 h2{
   text-align:center;
   position:relative;
   margin: auto;
+  font-size: 2em;
+  margin-top: 80px;
+}
+
+button {
+  height: 50px;
+  width: 50%;
+  border-radius: 10px;
+  font-size: 1.25em;
+  font-family: appFont;
+  margin-bottom: 25px;
+  outline: none;
+  border: none;
+  color: teal;
+  background: black;
 }
