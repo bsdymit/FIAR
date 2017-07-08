@@ -45,7 +45,10 @@ body {
     }
 }
 
+a {display:none;}
+
 h1 {
+    display:none;
     color: grey;
     font-family: appFont;
     font-size:5em;

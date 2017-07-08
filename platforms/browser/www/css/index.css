@@ -17,6 +17,11 @@
  * under the License.
  */
 
+@font-face {
+    font-family: appFont;
+    src: url(fonts/Iceberg-Regular.ttf);
+}
+
 html {
   height: 100%;
 }
@@ -27,6 +32,7 @@ body {
   width: 100%;
   margin: 0;
   text-align: center;
+  font-size: 20px;
 }
 
 /* Landscape layout (with min-width) */
@@ -39,9 +45,13 @@ body {
     }
 }
 
+a {display:none;}
+
 h1 {
-    color: red;
-    font-size:100px;
+    display:none;
+    color: grey;
+    font-family: appFont;
+    font-size:5em;
     font-weight:normal;
     margin:0px;
     overflow:visible;
@@ -50,11 +60,13 @@ h1 {
 }
 
 button {
-  height: 25%;
+  height: 15%;
   width: 50%;
-  margin-bottom: 10px;
+  margin-top: 15%;
+  border-radius: 10px;
+  font-size: 1.25em;
+  font-family: appFont;
 }
-
 
 #menu {
   height: 100%;

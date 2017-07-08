@@ -93,6 +93,7 @@ button {
 }
 
 #board {
+  display:none;
   position: relative;
   height: 0;
   outline: black solid thick;
@@ -113,6 +114,7 @@ button {
 }
 
 #gameMenuOptionButtons {
+  display:none;
   margin-top: 10%;
   position: relative;
 }

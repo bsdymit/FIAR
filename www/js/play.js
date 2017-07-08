@@ -31,6 +31,11 @@ var previousMoveDirection;
 
 var BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
+$(function() {
+  $('#board').fadeIn(500);
+  $('#gameMenuOptionButtons').fadeIn(500);
+});
+
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
 	{

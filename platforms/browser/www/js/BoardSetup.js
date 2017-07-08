@@ -3,7 +3,13 @@ var TILEWIDTH;
 
 window.onload = function setUpScreen() {
   setBoardAndTileSizes();
-  document.getElementById("currentPlayer").innerHTML = getCurrentPlayer();
+  setPlayerEntryDialogBoxes();
+}
+
+function setPlayerEntryDialogBoxes() {
+  var playerEntryDialog = document.getElementById( 'playerEntryDialog'  );
+		var dlg = new DialogFx( playerEntryDialog );
+    dlg.toggle(dlg);
 }
 
 function setBoardAndTileSizes() {

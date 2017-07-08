@@ -34,6 +34,11 @@ body {
     }
 }
 
+@font-face {
+    font-family: appFont;
+    src: url(fonts/Iceberg-Regular.ttf);
+}
+
 h1 {
     color: red;
     font-size:100px;
@@ -45,9 +50,9 @@ h1 {
 }
 
 button {
+  border-radius: 10px;
   height: 25%;
-  width: 50%;
-  margin-bottom: 10px;
+  width: 45%;
 }
 
 .square {
@@ -60,12 +65,12 @@ button {
 .white {
 }
 
-.red {
-  background-image: url("../img/red-tiles.jpg");
+.color1 {
+  background-color: teal;
 }
 
-.blue {
-  background-image: url("../img/blue-tiles.jpg");
+.color2 {
+  background-color: grey;
 }
 
 .inGameButton {
@@ -75,7 +80,20 @@ button {
   width: 41%;
 }
 
+.inGameDialogBoxes {
+  background-color: #dedee0;;
+  position: absolute;
+  border-radius: .25em .25em .4em .4em;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  text-align: center;
+  width: 50%;
+  margin:auto;
+  z-index: 1;
+}
+
 #board {
+  display:none;
   position: relative;
   height: 0;
   outline: black solid thick;
@@ -84,9 +102,8 @@ button {
 }
 
 #currentPlayer {
-  background-color: red;
   border-radius: 25px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: appFont;
   font-weight: bold;
   padding: 10px;
   position: relative;
@@ -96,21 +113,27 @@ button {
   text-align: center;
 }
 
-#gameMenuOptions {
-  margin: auto;
+#gameMenuOptionButtons {
+  display:none;
   margin-top: 10%;
-  padding: 10px;
   position: relative;
 }
 
-#quitToMenu {
+#quitToMenuButton {
   margin-left: 5%;
   padding: 10px;
   position: relative;
 }
 
-#restartGame {
+#restartGameButton {
   margin-left: 5%;
   padding: 10px;
   position: relative;
+}
+
+#playerInput {
+  border: 3px black solid;
+  padding: 5px;
+  font: Arial;
+  margin-left: -7px;
 }

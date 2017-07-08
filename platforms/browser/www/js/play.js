@@ -31,6 +31,11 @@ var previousMoveDirection;
 
 var BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
+$(function() {
+  $('#board').fadeIn(500);
+  $('#gameMenuOptionButtons').fadeIn(500);
+});
+
 document.addEventListener("touchstart", function(e) {
 	if(e.target.id != "board" && e.target.id != "pos0" && e.target.id != "pos3")
 	{
@@ -42,7 +47,7 @@ document.addEventListener("touchstart", function(e) {
     distanceFromStart = 0;
     previousMoveDirection = "none";
 
-		tileSelected(e.target.id);
+		tileSelected();
 	}
 }, false);
 
@@ -77,39 +82,41 @@ document.addEventListener("touchend", function(e) {
 		tileUnselected(e.target.id);
  	}, false);
 
-function tileSelected(id) {
-    selectedTile.style.zIndex = 20;
+function tileSelected() {
+  selectedTile.style.zIndex = 20;
+  selectedTile.style.opacity = .5;
 }
 
 function tileUnselected(id) {
   document.getElementById(id).style.zIndex = 0;
+  selectedTile.style.opacity = 1;
 
   if(distanceFromStart > 0)
   {
     var winningColor = checkForWinner();
-    if(winningColor == "red" || winningColor == "blue")
-      endGame(winningColor);
+    if(winningColor == playerColors[0] || winningColor == playerColors[1])
+      endGame(players[playerColors.indexOf(winningColor)]);
 
+    if(lastMovedTileNumber != -1)
+      document.getElementById("pos" + lastMovedTileNumber).style.border = "";
     setLastMovedTileNumber(selectedTileNumber);
+    document.getElementById("pos" + lastMovedTileNumber).style.border = "2px white dotted";
     nextPlayer();
   }
 }
 
-function confirmRestart() {
-  if (confirm("Restart the game?") == true)
-    window.location.reload()
-
-  document.getElementById("demo").innerHTML = txt;
+function restartGame(afterEndGame) {
+  if(afterEndGame == true)
+  {
+    setBoardAndTileSizes();
+    BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    setCurrentPlayer(players[0]);
+    document.getElementById("pos" + lastMovedTileNumber).style.border = "";
+  }
+  else
+    window.location.reload();
 }
 
-function confirmQuitGame() {
-  if (confirm("Quit to the main menu?") == true)
-    window.location.href = "index.html";
+function quitGame() {
+  window.location.href = "index.html";
 }
-
-
-
-
-
-
-
