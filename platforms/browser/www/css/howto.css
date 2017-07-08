@@ -4,7 +4,7 @@
 }
 
 ul {
-  display: inline-block;
+  display: none;
   list-style-type: none;
   padding: 5px;
 }
@@ -31,11 +31,14 @@ body {
 }
 
 h1 {
+  display: none;
   color: teal;
   font-size: 3em;
+  margin-top: 45px;
 }
 
 h2{
+  display: none;
   text-align:center;
   position:relative;
   margin: auto;
@@ -54,4 +57,8 @@ button {
   border: none;
   color: teal;
   background: black;
+}
+
+#back {
+  display: none;
 }

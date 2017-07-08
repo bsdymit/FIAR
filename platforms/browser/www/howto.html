@@ -17,18 +17,15 @@
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
     <link rel="stylesheet" type="text/css" href="css/howto.css" />
+    <script src="js/jquery-3.2.1.min.js"></script>
 </head>
-
   <body>
-
     <h1>
       How To Play
     </h1>
 
-
-    <h2>Game Setup</h2>
-
-    <ul>
+    <h2 class="firstFadeIn">Game Setup</h2>
+    <ul class="firstFadeIn">
       <li><span style="padding:2px">Find a friend to play with</span></li>
       <li>Decide who will be
         <span style="color:teal">Teal</span> and who will be
@@ -36,23 +33,19 @@
       </li>
     </ul>
 
-    <h2>
-      Game Objective
-    </h2>
-    <ul>
+    <h2 class="secondFadeIn">Game Objective</h2>
+    <ul class="secondFadeIn">
       <li>You win if you line up four of your tiles in a row either vertially, horizontally, or diagonally</li>
-      <li>Four in a row vertically:</li>
-      <img src="img/VerticalWin.png" style="width:250px;height:250px;">
+      <li>Four in a row verticallly:</li>
+      <image src="img/VerticalWin.jpg" style="width:250px;height:250px;">
       <li>Four in a row horizontally</li>
-      <img src="img/HorizontalWin.png" style="width:250px;height:250px;">
+      <img src="img/HorizontalWin.jpg" style="width:250px;height:250px;">
       <li>Four in a row diagonally</li>
-      <img src="img/DiagonalWin.png" style="width:250px;height:250px;">
+      <img src="img/DiagonalWin.jpg" style="width:250px;height:250px;">
     </ul>
 
-    <h2>
-      Turn Order
-    </h2>
-    <ul>
+    <h2 class="thirdFadeIn">Turn Order</h2>
+    <ul class="thirdFadeIn">
       <li><span style="color:teal">Teal</span> has the first move</li>
       <li>On your turn, you can slide one tile into an empy space</li>
       <li>You can slide a tile only a distance of one space</li>
@@ -66,9 +59,15 @@
 
   <script>
     $(function() {
-      $('.h1').hide().fadeIn(1);
-      $('.h2').fadeIn(500);
-      $('.h2').fadeIn(500);
+      $('h1').fadeIn(500,function() {
+        $('.firstFadeIn').fadeIn(500,function() {
+          $('.secondFadeIn').fadeIn(500,function() {
+            $('.thirdFadeIn').fadeIn(500,function() {
+              $('#back').fadeIn(500);
+            });
+          });
+        });
+      });
     });
   </script>
 </html>
