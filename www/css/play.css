@@ -93,7 +93,6 @@ button {
 }
 
 #board {
-  display:none;
   position: relative;
   height: 0;
   outline: black solid thick;
