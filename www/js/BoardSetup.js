@@ -1,6 +1,6 @@
 var SQUAREMARGIN = 8;
 var TILEWIDTH;
-var SCREENWIDTH = window.screen.width * window.devicePixelRatio;
+var SCREENWIDTH = window.innerWidth;
 
 window.onload = function setUpScreen() {
   setBoardAndTileSizes();
