@@ -1,5 +1,6 @@
 var SQUAREMARGIN = 8;
 var TILEWIDTH;
+var SCREENWIDTH = window.innerWidth;
 
 window.onload = function setUpScreen() {
   setBoardAndTileSizes();
@@ -14,7 +15,7 @@ function setPlayerEntryDialogBoxes() {
 
 function setBoardAndTileSizes() {
 
-  var boardWidth = round(screen.width - 50, 4);
+  var boardWidth = round(SCREENWIDTH - 50, 4);
   boardWidth = round(boardWidth, 5);
   boardWidth = round(boardWidth, 2);
 

@@ -1,3 +1,7 @@
+function onDeviceReady() {
+  navigator.splashscreen.hide();
+}
+
 $(function() {
   $('#gameTitle').fadeIn(500,function() {
     $('#play').fadeIn(500,function() {
