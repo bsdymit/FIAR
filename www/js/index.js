@@ -1,5 +1,5 @@
 document.addEventListener('deviceready', function() {
-  setTimeout(function() {navigator.splashscreen.hide();}, 1000);
+  setTimeout(function() {navigator.splashscreen.hide();}, 1);
 });
 
 $(function() {
