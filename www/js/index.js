@@ -1,6 +1,6 @@
-function onDeviceReady() {
-  setTimeout(function() {navigator.splashscreen.hide();}, 1000);
-}
+document.addEventListener('deviceready', function() {
+  navigator.splashscreen.hide();
+});
 
 $(function() {
   $('#gameTitle').fadeIn(500,function() {
