@@ -1,5 +1,5 @@
 function onDeviceReady() {
-  navigator.splashscreen.hide();
+  setTimeout(navigator.splashscreen.hide(), 30s0);
 }
 
 $(function() {
