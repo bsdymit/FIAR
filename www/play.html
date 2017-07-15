@@ -62,7 +62,7 @@
   <div id="playerEntryDialog" class="dialog">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
-      <h2>Enter Player <span id="playerEntryPrompt">One</span>'s name:</h2>
+      <h2>Enter <span id="playerEntryPrompt" style="color:teal">Teal</span> Player's name:</h2>
       <div><input type="text" id="playerInput" maxlength="12"/></div>
       <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
       <div><button class="innerDialogButtons action" id="enterPlayerSkip" onClick="enterPlayer()">Skip</button></div>
@@ -90,7 +90,7 @@
   <div id="endgamedialog" class="dialog">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
-      <h2><strong id="winner">wins!</strong>Do you want to play again?</h2>
+      <h2><strong id="winner"></strong> wins! Do you want to play again?</h2>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(true)">Yes</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">No</button></div>
     </div>

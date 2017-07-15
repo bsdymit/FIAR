@@ -103,8 +103,8 @@ function checkDiagsForWinner() {
 }
 
 function endGame(winningColor) {
-    document.getElementById("winner").innerHTML = winningColor.charAt(0).toUpperCase() + winningColor.slice(1) + " wins! ";
-
+    document.getElementById("winner").innerHTML = winningColor.charAt(0).toUpperCase() + winningColor.slice(1);
+    document.getElementById("winner").style.color = winningColor;
 		var endgamedialog = document.getElementById( 'endgamedialog'  );
 		var dlg = new DialogFx( endgamedialog );
     dlg.toggle(dlg);

@@ -8,17 +8,17 @@ function enterPlayer() {
   if(players.length == 0)
   {
     if(inputElement.value == "")
-      players.push("Player 1");
+      players.push("Teal");
     else
       players.push(inputElement.value);
 
     setCurrentPlayer(players[0]);
     document.getElementById("currentPlayer").innerHTML = getCurrentPlayer();
-    document.getElementById("currentPlayer").style.color = "black";
     document.getElementById("currentPlayer").style.backgroundColor = playerColors[0];
 
     inputElement.value = "";
-    document.getElementById("playerEntryPrompt").innerHTML = "Two";
+    document.getElementById("playerEntryPrompt").innerHTML = "Grey";
+    document.getElementById("playerEntryPrompt").style.color = playerColors[1];
 
     document.getElementById("enterPlayerOkay").setAttribute('data-dialog-close', '');
     document.getElementById("enterPlayerSkip").setAttribute('data-dialog-close', '');
@@ -30,7 +30,7 @@ function enterPlayer() {
   else
   {
     if(inputElement.value == "")
-      players.push("Player 2");
+      players.push("Grey");
     else
       players.push(inputElement.value);
   }
