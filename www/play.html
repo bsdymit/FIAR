@@ -63,7 +63,10 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Enter <span id="playerEntryPrompt" style="color:teal">Teal</span> Player's name:</h2>
-      <div><input type="text" id="playerInput" maxlength="12"/></div>
+      <div><input type="text" id="playerInput" maxlength="12" autocomplete="off"
+       autocorrect="off"
+       autocapitalize="off"
+       spellcheck="false"/></div>
       <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
       <div><button class="innerDialogButtons action" id="enterPlayerSkip" onClick="enterPlayer()">Skip</button></div>
     </div>
