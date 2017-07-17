@@ -95,7 +95,7 @@ function tileUnselected(id) {
   {
     var winningColor = checkForWinner();
     if(winningColor == playerColors[0] || winningColor == playerColors[1])
-      endGame(players[playerColors.indexOf(winningColor)]);
+      endGame(playerColors.indexOf(winningColor));
 
     if(lastMovedTileNumber != -1)
       document.getElementById("pos" + lastMovedTileNumber).style.border = "";
