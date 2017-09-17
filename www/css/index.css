@@ -60,6 +60,19 @@ h1 {
     text-align:center;
 }
 
+h2 {
+    display:none;
+    color: grey;
+    font-family: appFont;
+    font-size:3em;
+    font-weight:normal;
+    margin:0px;
+    margin-top: 20px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
 button {
   height: 15%;
   width: 50%;
