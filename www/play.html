@@ -69,8 +69,8 @@
         autocapitalize="off"
         spellcheck="false"/>
       </div>
-      <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
       <div><button class="innerDialogButtons action" id="enterPlayerSkip" onClick="enterPlayer()">Skip</button></div>
+	  <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
     </div>
   </div>
 
@@ -78,8 +78,8 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Are you sure you want to quit?</h2>
+	  <div><button class="innerDialogButtons action" data-dialog-close>Cancel</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">Yes</button></div>
-      <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
     </div>
   </div>
 
@@ -87,8 +87,8 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Are you sure you want to restart?</h2>
-      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(false)">Yes</button></div>
-      <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close>Cancel</button></div>
+	        <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(false)">Yes</button></div>
     </div>
   </div>
 
@@ -96,8 +96,8 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2><strong id="winner"></strong> wins! Do you want to play again?</h2>
-      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(true)">Yes</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">No</button></div>
+	  <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(true)">Yes</button></div>
     </div>
   </div>
 </body>
