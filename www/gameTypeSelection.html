@@ -27,8 +27,8 @@
 <body>
   <div id="menu">
     <h1 id="gameTitle">Game Type</h1>
-    <a type="button" href="play.html" id="humanVsHuman" class="menuButton firstFadeIn"><button>Human vs Human</button></a>
-    <a type="button" href="play.html" id="humanVsCPU" class="menuButton secondFadeIn"><button>Human vs CPU</button></a>
+    <a type="button" id="humanVsHuman" class="menuButton firstFadeIn"><button onClick="hvhGame()">Human vs Human</button></a>
+    <a type="button" id="humanVsCPU" class="menuButton secondFadeIn"><button onClick="hvcGame()">Human vs CPU</button></a>
     <a type="button" href="index.html" id="back" class="menuButton"><button>Back To Menu</button></a>
   </div>
 </body>
@@ -43,6 +43,16 @@
       });
     });
   });
+  
+  function hvhGame(){
+    window.name = "false";
+    window.location = "play.html";
+  }
+  
+  function hvcGame(){
+    window.name = "true";
+	window.location = "play.html";
+  }
 </script>
 
 </html>

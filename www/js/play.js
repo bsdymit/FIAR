@@ -28,6 +28,7 @@ var startingTileTop;
 var currentPositionInBoardState;
 var distanceFromStart;
 var previousMoveDirection;
+var isCpuGame;
 
 var BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -101,7 +102,8 @@ function tileUnselected(id) {
       document.getElementById("pos" + lastMovedTileNumber).style.border = "";
     setLastMovedTileNumber(selectedTileNumber);
     document.getElementById("pos" + lastMovedTileNumber).style.border = "2px white dotted";
-    nextPlayer();
+
+    nextPlayer(isCpuGame);
   }
 }
 

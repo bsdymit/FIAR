@@ -46,12 +46,17 @@ function getCurrentPlayer() {
  return currentPlayer;
 }
 
-function nextPlayer() {
-  if(currentPlayer == players[0])
-    currentPlayer = players[1];
-  else
-    currentPlayer = players[0];
+function nextPlayer(isCpuTurn) {
+	if(currentPlayer == players[0])
+		currentPlayer = players[1];
+	else
+    	currentPlayer = players[0];
 
-  document.getElementById("currentPlayer").innerHTML = currentPlayer;
-  document.getElementById("currentPlayer").style.backgroundColor = playerColors[players.indexOf(currentPlayer)];
+	document.getElementById("currentPlayer").innerHTML = currentPlayer;
+	document.getElementById("currentPlayer").style.backgroundColor = playerColors[players.indexOf(currentPlayer)];
+
+ 	if(isCpuTurn == "true") {
+		playCpuTurn();
+		nextPlayer(false);
+	}
 }
