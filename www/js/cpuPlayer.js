@@ -5,14 +5,13 @@ function playCpuTurn() {
 function easyMove() {
     var chosenEmptyTile = Math.random() < 0.5 ? 0 : 3;
     var locationOfChosenEmptyTile = BOARDSTATE.indexOf(chosenEmptyTile);
-    var tileToMove = getTileToMove(locationOfChosenEmptyTile);
-	
-	makeMove(locationOfChosenEmptyTile, tileToMove);
+    var tileToMoveLoc = getTileToMove(locationOfChosenEmptyTile);
+
+	makeMove(chosenEmptyTile, locationOfChosenEmptyTile, BOARDSTATE[tileToMoveLoc], tileToMoveLoc);
 }
 
 function getTileToMove(locationOfChosenEmptyTile) {
     var listOfAdjTileLocs = getAdjacentTileLocations(locationOfChosenEmptyTile);
-	document.getElementById("poop").innerHTML = listOfAdjTileLocs;
 	return listOfAdjTileLocs[Math.floor(Math.random()*listOfAdjTileLocs.length)];
 }
 
@@ -48,15 +47,56 @@ function getAdjacentTileLocations(locationOfChosenEmptyTile) {
     return listOfAdjacentTiles;
 }
 
-function makeMove(emptyTileLoc, selectedTileLoc) {
+function makeMove(chosenEmptyTile, locationOfChosenEmptyTile, tileToMove, tileToMoveLoc) {
+	var chosenEmptyTileElement = document.getElementById("pos" + chosenEmptyTile);
+	var tileToMoveElement = document.getElementById("pos" + tileToMove);
+	
+	var chosenEmptyTileLeft = parseInt(chosenEmptyTileElement.style.left.replace("px", ""));
+	var chosenEmptyTileTop = parseInt(chosenEmptyTileElement.style.top.replace("px", ""));
+	var tileToMoveLeft = parseInt(tileToMoveElement.style.left.replace("px", ""));
+	var tileToMoveTop = parseInt(tileToMoveElement.style.top.replace("px", ""));
+	
+	var tileDiff = locationOfChosenEmptyTile - tileToMoveLoc;
+
+	if(tileDiff < 0 && tileDiff < -1) {
+		chosenEmptyTileElement.style.top = (chosenEmptyTileTop + (TILEWIDTH + SQUAREMARGIN)) + "px";
+		tileToMoveElement.style.top = (tileToMoveTop - (TILEWIDTH + SQUAREMARGIN)) + "px";
+		
+		var temp = BOARDSTATE[tileToMoveLoc];
+		BOARDSTATE[tileToMoveLoc] = BOARDSTATE[tileToMoveLoc-4];
+		BOARDSTATE[tileToMoveLoc-4] = temp;
+	}
+	else if(tileDiff < 0 && tileDiff == -1) {
+		chosenEmptyTileElement.style.left = (chosenEmptyTileLeft + (TILEWIDTH + SQUAREMARGIN)) + "px";
+		tileToMoveElement.style.left = (tileToMoveLeft - (TILEWIDTH + SQUAREMARGIN)) + "px";
+		
+		var temp = BOARDSTATE[tileToMoveLoc];
+		BOARDSTATE[tileToMoveLoc] = BOARDSTATE[tileToMoveLoc-1];
+		BOARDSTATE[tileToMoveLoc-1] = temp;
+	}
+	else if(tileDiff > 0 && tileDiff > 1){
+		chosenEmptyTileElement.style.top = (chosenEmptyTileTop - (TILEWIDTH + SQUAREMARGIN)) + "px";
+		tileToMoveElement.style.top = (tileToMoveTop + (TILEWIDTH + SQUAREMARGIN)) + "px";
+		
+		var temp = BOARDSTATE[tileToMoveLoc];
+		BOARDSTATE[tileToMoveLoc] = BOARDSTATE[tileToMoveLoc+4];
+		BOARDSTATE[tileToMoveLoc+4] = temp;
+	}
+	else {
+		chosenEmptyTileElement.style.left = (chosenEmptyTileLeft - (TILEWIDTH + SQUAREMARGIN)) + "px";
+		tileToMoveElement.style.left = (tileToMoveLeft + (TILEWIDTH + SQUAREMARGIN)) + "px";
+		
+		var temp = BOARDSTATE[tileToMoveLoc];
+		BOARDSTATE[tileToMoveLoc] = BOARDSTATE[tileToMoveLoc+1];
+		BOARDSTATE[tileToMoveLoc+1] = temp;
+	}
+	
 	var winningColor = checkForWinner();
     if(winningColor == playerColors[0] || winningColor == playerColors[1])
       endGame(playerColors.indexOf(winningColor));
 
     if(lastMovedTileNumber != -1)
-      document.getElementById("pos" + BOARDSTATE[selectedTileLoc]).style.border = "";
-    setLastMovedTileNumber(BOARDSTATE[selectedTileLoc]);
-    document.getElementById("pos" + BOARDSTATE[selectedTileLoc]).style.border = "2px white dotted";
-
-    nextPlayer(isCpuGame);
+      document.getElementById("pos" + lastMovedTileNumber).style.border = "";
+    setLastMovedTileNumber(tileToMove);
+    document.getElementById("pos" + lastMovedTileNumber).style.border = "2px white dotted";
 }
