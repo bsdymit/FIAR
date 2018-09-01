@@ -19,17 +19,18 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
     <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>FIAR Game Type Selection</title>
+    <title>FIAR CPU Difficulty Selection</title>
     <script src="cordova.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
   <div id="menu">
-    <h1 id="gameTitle">Game Type</h1>
-    <a type="button" id="humanVsHuman" class="menuButton firstFadeIn"><button onClick="hvhGame()">Human vs Human</button></a>
-    <a type="button" id="humanVsCPU" class="menuButton secondFadeIn"><button onClick="hvcGame()">Human vs CPU</button></a>
-    <a type="button" href="index.html" id="back" class="menuButton"><button>Back To Menu</button></a>
+    <h1 id="gameTitle">CPU Difficulty</h1>
+    <a type="button" id="cpuEasy" class="menuButton firstFadeIn"><button onClick="easy()">Easy</button></a>
+    <a type="button" id="cpuMedium" class="menuButton secondFadeIn"><button onClick="medium()">Medium</button></a>
+	<a type="button" id="cpuHard" class="menuButton thirdFadeIn"><button onClick="hard()">Hard</button></a>
+    <a type="button" href="gameTypeSelection.html" id="back" class="menuButton"><button>Back To Game Type Selection</button></a>
   </div>
 </body>
 
@@ -38,20 +39,27 @@
     $('h1').fadeIn(500,function() {
       $('.firstFadeIn').fadeIn(500,function() {
         $('.secondFadeIn').fadeIn(500,function() {
-          $('#back').fadeIn(500);
+		  $('.thirdFadeIn').fadeIn(500,function() {
+            $('#back').fadeIn(500);
+		  });
         });
       });
     });
   });
   
-  function hvhGame(){
-    window.name = "false";
+  function easy(){
+    window.name = "easy";
     window.location = "play.html";
   }
   
-  function hvcGame(){
-    window.name = "true";
-	window.location = "cpuDifficulty.html";
+  function medium(){
+    window.name = "medium";
+	window.location = "play.html";
+  }
+    
+  function hard(){
+    window.name = "hard";
+	window.location = "play.html";
   }
 </script>
 

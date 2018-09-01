@@ -8,9 +8,17 @@ window.onload = function setUpScreen() {
 }
 
 function setPlayerEntryDialogBoxes() {
-  var playerEntryDialog = document.getElementById( 'playerEntryDialog'  );
-		var dlg = new DialogFx( playerEntryDialog );
-    dlg.toggle(dlg);
+  isCpuGame = window.name;
+  if(isCpuGame.localeCompare("false") != 0) {
+	var colorSelectionDialog = document.getElementById( 'colorSelectionDialog'  );
+	var dlg2 = new DialogFx( colorSelectionDialog );
+    dlg2.toggle(dlg2);
+  }
+  else {
+    var playerEntryDialog = document.getElementById( 'playerEntryDialog'  );
+	var dlg1 = new DialogFx( playerEntryDialog );
+    dlg1.toggle(dlg1);
+  }
 }
 
 function setBoardAndTileSizes() {

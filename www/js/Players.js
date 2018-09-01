@@ -23,9 +23,7 @@ function enterPlayer() {
     document.getElementById("enterPlayerOkay").setAttribute('data-dialog-close', '');
     document.getElementById("enterPlayerSkip").setAttribute('data-dialog-close', '');
 
-    var playerEntryDialog = document.getElementById( 'playerEntryDialog'  );
-		var dlg = new DialogFx( playerEntryDialog );
-    dlg.toggle(dlg);
+	toggleDialog("playerEntryDialog");
   }
   else
   {
@@ -34,6 +32,33 @@ function enterPlayer() {
     else
       players.push(inputElement.value);
   }
+}
+
+function playerChoseFirst() {
+	toggleDialog("playerEntryDialog");
+	toggleDialog("colorSelectionDialog");
+	var inputElement = document.getElementById("playerInput");
+
+    if(inputElement.value == "")
+      players.push("Teal");
+    else
+      players.push(inputElement.value);
+
+    setCurrentPlayer(players[0]);
+    document.getElementById("currentPlayer").innerHTML = getCurrentPlayer();
+    document.getElementById("currentPlayer").style.backgroundColor = playerColors[0];
+	
+}
+
+function playerChoseSecond() {
+	
+}
+
+function toggleDialog(dialogId)
+{
+	var playerEntryDialog = document.getElementById( dialogId );
+	var dlg = new DialogFx( playerEntryDialog );
+    dlg.toggle(dlg);
 }
 
 function setCurrentPlayer(currentPlayer) {
@@ -55,8 +80,8 @@ function nextPlayer(isCpuTurn) {
 	document.getElementById("currentPlayer").innerHTML = currentPlayer;
 	document.getElementById("currentPlayer").style.backgroundColor = playerColors[players.indexOf(currentPlayer)];
 
- 	if(isCpuTurn == "true") {
-		playCpuTurn();
+ 	if(isCpuTurn.localeCompare("false") != 0) {
+		playCpuTurn(isCpuTurn);
 		nextPlayer(false);
 	}
 }

@@ -56,7 +56,7 @@
   </div>
   <div id="gameMenuOptionButtons">
     <div class="button-wrap">
-      <button quit-dialog="quitdialog" class="trigger" id="poop">Quit</button>
+      <button quit-dialog="quitdialog" class="trigger">Quit</button>
       <button restart-dialog="restartdialog" class="trigger">Restart</button>
     </div>
   </div>
@@ -74,7 +74,7 @@
 	  <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
     </div>
   </div>
-
+  
   <div id="quitdialog" class="dialog">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
@@ -84,12 +84,22 @@
     </div>
   </div>
 
+  <div id="colorSelectionDialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+      <h2>Do you want to go</h2>
+      <div><button style="color:teal" class="innerDialogButtons action" id="enterPlayerSkip" onClick="playerChoseFirst()">First</button></div>
+	  <h2>or</h2>
+	  <div><button style="color:grey" class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Second</button></div>
+    </div>
+  </div>
+
   <div id="restartdialog" class="dialog">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Are you sure you want to restart?</h2>
       <div><button class="innerDialogButtons action" data-dialog-close>Cancel</button></div>
-	        <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(false)">Yes</button></div>
+	  <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(false)">Yes</button></div>
     </div>
   </div>
 
@@ -107,8 +117,6 @@
 <script src="js/dialog/dialogFx.js"></script>
 <script>
   
-  isCpuGame = window.name;
-  
 	(function() {
 
 		var quitdlgtrigger = document.querySelector( '[quit-dialog]' );
@@ -117,7 +125,7 @@
 
 		quitdlgtrigger.addEventListener( 'click', dlg.toggle.bind(dlg) );
 
-    var restartdlgtrigger = document.querySelector( '[restart-dialog]' ),
+        var restartdlgtrigger = document.querySelector( '[restart-dialog]' ),
 			restartdialog = document.getElementById( restartdlgtrigger.getAttribute( 'restart-dialog' ) ),
 			dlg = new DialogFx( restartdialog );
 
