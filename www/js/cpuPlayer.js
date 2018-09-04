@@ -1,6 +1,9 @@
 function playCpuTurn(difficulty) {
 	if(difficulty == "easy")
-    	easyMove();
+		
+		setTimeout(function (){
+			easyMove();
+		}, 1000);
 	if(difficulty == "medium")
     	mediumMove();
 	if(difficulty == "hard")

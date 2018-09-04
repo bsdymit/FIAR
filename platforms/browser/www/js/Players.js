@@ -1,6 +1,5 @@
 var players = [];
 var currentPlayer;
-var playerChoseFirst;
 var playerColors = ["teal", "grey"];
 
 function enterPlayer() {
@@ -36,7 +35,6 @@ function enterPlayer() {
 }
 
 function playerChoseFirst() {
-  playerChoseFirst = true;
   var colorSelectionDialog = document.getElementById('colorSelectionDialog');
   var dlg1 = new DialogFx(colorSelectionDialog);
   dlg1.toggle(dlg1);
@@ -60,10 +58,15 @@ function cpuGoesSecond() {
     else
       players.push(inputElement.value);
   }
+
+players.push("CPU");
+
+  setCurrentPlayer(players[0]);
+  document.getElementById("currentPlayer").innerHTML = getCurrentPlayer();
+  document.getElementById("currentPlayer").style.backgroundColor = playerColors[0];
 }
 
 function playerChoseSecond() {
-  playerChoseFirst = "false";
   players.push("CPU");
   setCurrentPlayer(players[0]);
 
