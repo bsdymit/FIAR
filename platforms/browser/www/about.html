@@ -17,21 +17,47 @@
     * Create your own at http://cspisawesome.com
     -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-    <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>FIAR Menu</title>
-    <script src="cordova.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/about.css" />
+    <title>About FIAR</title>
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
 </head>
 
 <body>
-  <div id="menu">
-    <h1 id="gameTitle">FIAR</h1>
-    <a type="button" href="gameTypeSelection.html" id="play" class="menuButton"><button>Play</button></a>
-    <a type="button" href="howto.html" id="howToPlay" class="menuButton"><button>How To Play</button></a>
-    <a type="button" href="about.html" id="about" class="menuButton"><button>About</button></a>
-  </div>
+  <h1>
+    About FIAR
+  </h1>
+  <ul class="firstFadeIn">
+    <li>FIAR or Four In A Row was created by Dr. Bread.
+      The creation took place in a local mexican restaruant using sugar packets.
+      Dr. Bread did not playtest FIAR very much and doesn't know if the game if solvable or not.</li>
+  </ul>
+  <h2 class="secondFadeIn">
+    FIAR pronunciation
+  </h2>
+  <ul class="thirdFadeIn">
+    <li>Gnouw dis ees pawd wrasing</li>
+  </ul>
+  <h2 class="thirdFadeIn">
+    Disclaimer
+  </h2>
+  <ul class="thirdFadeIn">
+    <li>If you make your own game based off of FIAR, at least let me know about it and maybe give me like 2 dollars.</li>
+  </ul>
+  <a type="button" href="index.html" id="back" class="menuButton"><button>Back To Menu</button></a>
 </body>
+
+<script>
+  $(function() {
+    $('h1').fadeIn(500,function() {
+      $('.firstFadeIn').fadeIn(500,function() {
+        $('.secondFadeIn').fadeIn(500,function() {
+          $('.thirdFadeIn').fadeIn(500,function() {
+            $('#back').fadeIn(500);
+          });
+        });
+      });
+    });
+  });
+</script>
 
 </html>

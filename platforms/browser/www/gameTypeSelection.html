@@ -19,19 +19,40 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
     <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>FIAR Menu</title>
+    <title>FIAR Game Type Selection</title>
     <script src="cordova.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
 </head>
 
 <body>
   <div id="menu">
-    <h1 id="gameTitle">FIAR</h1>
-    <a type="button" href="gameTypeSelection.html" id="play" class="menuButton"><button>Play</button></a>
-    <a type="button" href="howto.html" id="howToPlay" class="menuButton"><button>How To Play</button></a>
-    <a type="button" href="about.html" id="about" class="menuButton"><button>About</button></a>
+    <h1 id="gameTitle">Game Type</h1>
+    <a type="button" id="humanVsHuman" class="menuButton firstFadeIn"><button onClick="hvhGame()">Human vs Human</button></a>
+    <a type="button" id="humanVsCPU" class="menuButton secondFadeIn"><button onClick="hvcGame()">Human vs CPU</button></a>
+    <a type="button" href="index.html" id="back" class="menuButton"><button>Back To Menu</button></a>
   </div>
 </body>
+
+<script>
+  $(function() {
+    $('h1').fadeIn(500,function() {
+      $('.firstFadeIn').fadeIn(500,function() {
+        $('.secondFadeIn').fadeIn(500,function() {
+          $('#back').fadeIn(500);
+        });
+      });
+    });
+  });
+  
+  function hvhGame(){
+    window.name = "false";
+    window.location = "play.html";
+  }
+  
+  function hvcGame(){
+    window.name = "true";
+	window.location = "cpuDifficulty.html";
+  }
+</script>
 
 </html>

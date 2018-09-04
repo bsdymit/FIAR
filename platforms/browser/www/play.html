@@ -2,13 +2,14 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
-    <!-- Good default declaration:
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+  <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *"
+  />
+  <!-- Good default declaration:
     * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
     * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
     * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
@@ -16,20 +17,22 @@
         * Enable eval(): add 'unsafe-eval' to default-src
     * Create your own at http://cspisawesome.com
     -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-    <link rel="stylesheet" type="text/css" href="css/dialog/dialog-henry.css" />
-    <link rel="stylesheet" type="text/css" href="css/dialog/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
-    <link rel="stylesheet" type="text/css" href="css/dialog/dialog.css" />
-    <link rel="stylesheet" type="text/css" href="css/play.css" />
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/dialog/modernizr.custom.js"></script>
-    <script type="text/javascript" src="js/Players.js"></script>
-    <script type="text/javascript" src="js/BoardSetup.js"></script>
-    <script type="text/javascript" src="js/MoveTiles.js"></script>
-    <script type="text/javascript" src="js/ValidTileMoves.js"></script>
-    <script type="text/javascript" src="js/EndGame.js"></script>
-    <script type="text/javascript" src="js/play.js"></script>
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+  <link rel="stylesheet" type="text/css" href="css/dialog/dialog-henry.css" />
+  <link rel="stylesheet" type="text/css" href="css/dialog/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
+  <link rel="stylesheet" type="text/css" href="css/dialog/dialog.css" />
+  <link rel="stylesheet" type="text/css" href="css/play.css" />
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/dialog/modernizr.custom.js"></script>
+  <script src="cordova.js"></script>
+  <script type="text/javascript" src="js/Players.js"></script>
+  <script type="text/javascript" src="js/BoardSetup.js"></script>
+  <script type="text/javascript" src="js/MoveTiles.js"></script>
+  <script type="text/javascript" src="js/ValidTileMoves.js"></script>
+  <script type="text/javascript" src="js/EndGame.js"></script>
+  <script type="text/javascript" src="js/play.js"></script>
+  <script type="text/javascript" src="js/cpuPlayer.js"></script>
 </head>
 
 <body>
@@ -50,7 +53,7 @@
     <div id="pos12" class="square color2"></div>
     <div id="pos13" class="square color1"></div>
     <div id="pos14" class="square color2"></div>
-	  <div id="pos15" class="square color1"></div>
+    <div id="pos15" class="square color1"></div>
   </div>
   <div id="gameMenuOptionButtons">
     <div class="button-wrap">
@@ -59,13 +62,26 @@
     </div>
   </div>
 
+  <div id="colorSelectionDialog" class="dialog">
+    <div class="dialog__overlay"></div>
+    <div class="dialog__content">
+      <h2 id="poop">Do you want to go</h2>
+      <div><button style="color:teal" class="innerDialogButtons action" id="chooseTealColor" onClick="playerChoseFirst()" data-dialog-close="">First</button></div>
+      <h1>or</h1>
+      <div><button style="color:grey" class="innerDialogButtons action" id="chooseGreyColor" onClick="playerChoseSecond()" data-dialog-close="">Second</button></div>
+    </div>
+  </div>
+
   <div id="playerEntryDialog" class="dialog">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
-      <h2>Enter Player <span id="playerEntryPrompt">One</span>'s name:</h2>
-      <div><input type="text" id="playerInput" maxlength="12"/></div>
-      <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
+      <h2>Enter <span id="playerEntryPrompt" style="color:teal">Teal</span> Player's name:</h2>
+      <div>
+        <input type="text" id="playerInput" maxlength="10" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+        />
+      </div>
       <div><button class="innerDialogButtons action" id="enterPlayerSkip" onClick="enterPlayer()">Skip</button></div>
+      <div><button class="innerDialogButtons action" id="enterPlayerOkay" onClick="enterPlayer()">Okay</button></div>
     </div>
   </div>
 
@@ -73,8 +89,8 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Are you sure you want to quit?</h2>
+      <div><button class="innerDialogButtons action" data-dialog-close>Cancel</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">Yes</button></div>
-      <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
     </div>
   </div>
 
@@ -82,17 +98,17 @@
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
       <h2>Are you sure you want to restart?</h2>
+      <div><button class="innerDialogButtons action" data-dialog-close>Cancel</button></div>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(false)">Yes</button></div>
-      <div><button class="innerDialogButtons action" data-dialog-close>Canel</button></div>
     </div>
   </div>
 
   <div id="endgamedialog" class="dialog">
     <div class="dialog__overlay"></div>
     <div class="dialog__content">
-      <h2><strong id="winner">wins!</strong>Do you want to play again?</h2>
-      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(true)">Yes</button></div>
+      <h2><strong id="winner"></strong> wins! Do you want to play again?</h2>
       <div><button class="innerDialogButtons action" data-dialog-close onClick="quitGame()">No</button></div>
+      <div><button class="innerDialogButtons action" data-dialog-close onClick="restartGame(true)">Yes</button></div>
     </div>
   </div>
 </body>
@@ -100,21 +116,22 @@
 <script src="js/dialog/classie.js"></script>
 <script src="js/dialog/dialogFx.js"></script>
 <script>
-	(function() {
 
-		var quitdlgtrigger = document.querySelector( '[quit-dialog]' );
-			quitdialog = document.getElementById( quitdlgtrigger.getAttribute( 'quit-dialog' ) ),
-			dlg = new DialogFx( quitdialog );
+  (function () {
 
-		quitdlgtrigger.addEventListener( 'click', dlg.toggle.bind(dlg) );
+    var quitdlgtrigger = document.querySelector('[quit-dialog]');
+    quitdialog = document.getElementById(quitdlgtrigger.getAttribute('quit-dialog')),
+      dlg = new DialogFx(quitdialog);
 
-    var restartdlgtrigger = document.querySelector( '[restart-dialog]' ),
-			restartdialog = document.getElementById( restartdlgtrigger.getAttribute( 'restart-dialog' ) ),
-			dlg = new DialogFx( restartdialog );
+    quitdlgtrigger.addEventListener('click', dlg.toggle.bind(dlg));
 
-		restartdlgtrigger.addEventListener( 'click', dlg.toggle.bind(dlg) );
+    var restartdlgtrigger = document.querySelector('[restart-dialog]'),
+      restartdialog = document.getElementById(restartdlgtrigger.getAttribute('restart-dialog')),
+      dlg = new DialogFx(restartdialog);
 
-	})();
+    restartdlgtrigger.addEventListener('click', dlg.toggle.bind(dlg));
+
+  })();
 </script>
 
 </html>

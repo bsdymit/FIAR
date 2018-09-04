@@ -19,19 +19,48 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
     <link rel="stylesheet" type="text/css" href="css/dialog/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>FIAR Menu</title>
+    <title>FIAR CPU Difficulty Selection</title>
     <script src="cordova.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
 </head>
 
 <body>
   <div id="menu">
-    <h1 id="gameTitle">FIAR</h1>
-    <a type="button" href="gameTypeSelection.html" id="play" class="menuButton"><button>Play</button></a>
-    <a type="button" href="howto.html" id="howToPlay" class="menuButton"><button>How To Play</button></a>
-    <a type="button" href="about.html" id="about" class="menuButton"><button>About</button></a>
+    <h1 id="gameTitle">CPU Difficulty</h1>
+    <a type="button" id="cpuEasy" class="menuButton firstFadeIn"><button onClick="easy()">Easy</button></a>
+    <a type="button" id="cpuMedium" class="menuButton secondFadeIn"><button onClick="medium()">Medium</button></a>
+	<a type="button" id="cpuHard" class="menuButton thirdFadeIn"><button onClick="hard()">Hard</button></a>
+    <a type="button" href="gameTypeSelection.html" id="back" class="menuButton"><button>Back To Game Type Selection</button></a>
   </div>
 </body>
+
+<script>
+  $(function() {
+    $('h1').fadeIn(500,function() {
+      $('.firstFadeIn').fadeIn(500,function() {
+        $('.secondFadeIn').fadeIn(500,function() {
+		  $('.thirdFadeIn').fadeIn(500,function() {
+            $('#back').fadeIn(500);
+		  });
+        });
+      });
+    });
+  });
+  
+  function easy(){
+    window.name = "easy";
+    window.location = "play.html";
+  }
+  
+  function medium(){
+    window.name = "medium";
+	window.location = "play.html";
+  }
+    
+  function hard(){
+    window.name = "hard";
+	window.location = "play.html";
+  }
+</script>
 
 </html>

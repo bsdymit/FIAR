@@ -102,10 +102,12 @@ function checkDiagsForWinner() {
   return winningColor;
 }
 
-function endGame(winningColor) {
-    document.getElementById("winner").innerHTML = winningColor.charAt(0).toUpperCase() + winningColor.slice(1) + " wins! ";
-
-		var endgamedialog = document.getElementById( 'endgamedialog'  );
-		var dlg = new DialogFx( endgamedialog );
-    dlg.toggle(dlg);
+function endGame(winningColorIndex) {
+  var winningPlayerName = players[winningColorIndex];
+  var winningPlayerColor = playerColors[winningColorIndex];
+  document.getElementById("winner").innerHTML = winningPlayerName.charAt(0).toUpperCase() + winningPlayerName.slice(1);
+  document.getElementById("winner").style.color = winningPlayerColor;
+	var endgamedialog = document.getElementById( 'endgamedialog'  );
+	var dlg = new DialogFx( endgamedialog );
+  dlg.toggle(dlg);
 }

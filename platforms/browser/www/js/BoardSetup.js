@@ -8,9 +8,17 @@ window.onload = function setUpScreen() {
 }
 
 function setPlayerEntryDialogBoxes() {
-  var playerEntryDialog = document.getElementById( 'playerEntryDialog'  );
-		var dlg = new DialogFx( playerEntryDialog );
-    dlg.toggle(dlg);
+  isCpuGame = window.name;
+  if (isCpuGame.localeCompare("false") != 0) {
+    var colorSelectionDialog = document.getElementById('colorSelectionDialog');
+    var dlg2 = new DialogFx(colorSelectionDialog);
+    dlg2.toggle(dlg2);
+  }
+  else {
+    var playerEntryDialog = document.getElementById('playerEntryDialog');
+    var dlg1 = new DialogFx(playerEntryDialog);
+    dlg1.toggle(dlg1);
+  }
 }
 
 function setBoardAndTileSizes() {
@@ -26,18 +34,18 @@ function setBoardAndTileSizes() {
   TILEWIDTH = document.getElementById("pos0").getBoundingClientRect().width;
 }
 
-function setSquareWidthAndMargins(squareWidth){
+function setSquareWidthAndMargins(squareWidth) {
   var elements = document.getElementsByClassName("square");
   for (var i = 0; i < 4; i++) {
-    for(var j = 0; j < 4; j++) {
-      elements[(4*i)+j].style.width = (squareWidth + "px");
-      elements[(4*i)+j].style.paddingBottom = (squareWidth + "px");
-      elements[(4*i)+j].style.left = (j*squareWidth) + ((j+1)*SQUAREMARGIN) + "px";
-      elements[(4*i)+j].style.top = (i*squareWidth) + ((i+1)*SQUAREMARGIN) + "px";
+    for (var j = 0; j < 4; j++) {
+      elements[(4 * i) + j].style.width = (squareWidth + "px");
+      elements[(4 * i) + j].style.paddingBottom = (squareWidth + "px");
+      elements[(4 * i) + j].style.left = (j * squareWidth) + ((j + 1) * SQUAREMARGIN) + "px";
+      elements[(4 * i) + j].style.top = (i * squareWidth) + ((i + 1) * SQUAREMARGIN) + "px";
     }
   }
 }
 
 var round = function (x, to) {
-    return Math.floor(x / to) * to;
+  return Math.floor(x / to) * to;
 };
