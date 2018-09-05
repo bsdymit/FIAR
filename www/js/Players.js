@@ -54,7 +54,7 @@ function cpuGoesSecond() {
 
   if (players.length == 0) {
     if (inputElement.value == "")
-      players.push("Teal");
+      players.push("Human");
     else
       players.push(inputElement.value);
   }
@@ -87,7 +87,15 @@ function playerChoseSecond() {
 }
 
 function cpuGoesFirst() {
+  var inputElement = document.getElementById("playerInput");
 
+  if (inputElement.value == "")
+    players.push("Human");
+  else
+    players.push(inputElement.value);
+
+  playCpuTurn(isCpuTurn);
+  nextPlayer(false);
 }
 
 function setCurrentPlayer(currentPlayer) {
