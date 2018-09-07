@@ -110,10 +110,15 @@ function tileUnselected(id) {
 function restartGame(afterEndGame) {
   if(afterEndGame == true)
   {
-    setBoardAndTileSizes();
-    BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-    setCurrentPlayer(players[0]);
-    document.getElementById("pos" + lastMovedTileNumber).style.border = "";
+	if (isCpuTurn.localeCompare("false") != 0) {
+		window.location.reload();
+	}
+	else {
+    	setBoardAndTileSizes();
+    	BOARDSTATE = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+    	setCurrentPlayer(players[0]);
+    	document.getElementById("pos" + lastMovedTileNumber).style.border = "";
+    }
   }
   else
     window.location.reload();

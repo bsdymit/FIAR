@@ -28,8 +28,8 @@
   <div id="menu">
     <h1 id="gameTitle">CPU Difficulty</h1>
     <a type="button" id="cpuEasy" class="menuButton firstFadeIn"><button onClick="easy()">Easy</button></a>
-    <a type="button" id="cpuMedium" class="menuButton secondFadeIn"><button onClick="medium()">Medium</button></a>
-	<a type="button" id="cpuHard" class="menuButton thirdFadeIn"><button onClick="hard()">Hard</button></a>
+    <!-- <a type="button" id="cpuMedium" class="menuButton secondFadeIn" style="display:none"><button onClick="medium()">Medium</button></a>
+	  <a type="button" id="cpuHard" class="menuButton thirdFadeIn"><button onClick="hard()">Hard</button></a> -->
     <a type="button" href="gameTypeSelection.html" id="back" class="menuButton"><button>Back To Game Type Selection</button></a>
   </div>
 </body>
@@ -38,12 +38,12 @@
   $(function() {
     $('h1').fadeIn(500,function() {
       $('.firstFadeIn').fadeIn(500,function() {
-        $('.secondFadeIn').fadeIn(500,function() {
-		  $('.thirdFadeIn').fadeIn(500,function() {
+      //   $('.secondFadeIn').fadeIn(500,function() {
+		  // $('.thirdFadeIn').fadeIn(500,function() {
             $('#back').fadeIn(500);
 		  });
-        });
-      });
+      //   });
+      // });
     });
   });
   

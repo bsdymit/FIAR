@@ -1,6 +1,6 @@
 function playCpuTurn(difficulty) {
 	if(difficulty == "easy")
-    	easyMove();
+		easyMove();
 	if(difficulty == "medium")
     	mediumMove();
 	if(difficulty == "hard")
